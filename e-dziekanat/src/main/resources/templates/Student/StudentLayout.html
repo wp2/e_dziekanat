@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"/>
+<title>E-Dziekanat Student</title>
+<link rel="stylesheet" type="text/css" href="/CSS/GlobalStyle.css"/>
+</head>
+<body>
+	<div id="Strona">
+		<div id="Logo">
+			<img src="/Images/E-dziekanat_logo.png" alt="e-dziekanat_logo" />			
+		</div>
+		<div id="PasekNawigacyjny">
+			<ul class="Pelny">
+				<li><a href='#'>Opcja 1</a></li>
+				<li><a href='#'>Opcja 2</a></li>
+				<li><a href='#'>Opcja 3</a></li>
+			</ul>
+		</div>
+		<div id="LeweMenu">
+			<ul>
+            	<li>            		
+                    <a href="">Student</a>
+                    <ul>                    	
+                        <li><a href="#">Oceny</a></li>
+                        <li><a href="#">DaneOsobowe</a></li>
+                        <li><a href="#">Przedmioty</a></li>                       
+                    </ul>                	
+                </li>
+                <li><a href="#">Ogłoszenia</a></li>
+            </ul>
+		</div>
+		<div id="Zawartosc" layout:fragment="Zawartosc">
+		</div>
+		<div id="Stopka">			
+		 	<hr />
+            <p>Wszystkie Prawa Zastrzeżone &copy; 2017 Wojciech Pardel</p>
+            <p>Kontakt : wpardel@gmail.com</p>
+            <hr />
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 package zut.wi.edziekanat.controllers;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 
+
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StudentController {
 	
 	@GetMapping(value="/")	
-	public String Hello()
+	//@PreAuthorize("hasRole('ROLE_DYDAKTYK') && isAuthenticated()")
+	@Secured("ROLE_STUDENT")
+	public String Home()
 	{
-		return "Home";
+		
+		return "Student/StudentOgloszenia";
+	}
+	
+	@GetMapping(value="/DaneStudenta")
+	@Secured("ROLE_STUDENT")
+	public String DaneStudenta()
+	{
+		return "Student/DaneStudenta";
 	}
 
 }

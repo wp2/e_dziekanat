@@ -1,0 +1,199 @@
+@CHARSET "UTF-8";
+body
+{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+/*--------------------------------------------------SEKCJA PASKA NAWIGACYJNEGO------------------------------------- */
+#PasekNawigacyjny
+{
+	margin-bottom: 1px;
+	overflow: auto;
+}
+
+#PasekNawigacyjny ul.Pelny
+{
+    width: 100%;
+    list-style:none;
+    float:left;
+    background-color: #125bd0;
+    margin: 2px 0 0px 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    overflow-x: hidden;
+}
+
+#PasekNawigacyjny ul.Pelny li
+{
+    float :left;
+
+}
+#PasekNawigacyjny ul.Pelny li a
+{
+    display: block;
+    padding:15px;
+    padding-right: 100px;
+    margin-right: 100px;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+#PasekNawigacyjny ul.Pelny li a:hover
+{
+    color: #125bd0;
+    background-color: #fff;
+}
+#PasekNawigacyjny ul.Pelny li a p
+{
+    text-decoration-color: #FFFFFF;
+}
+/* -------------------------------------------------SEKCJA ZAWARTOŚCI---------------------------------------------- */
+#Zawartosc
+{
+
+    display:block;
+    padding-left: 25px;
+    padding-right: 15px;
+    margin-left: 200px;
+    //padding-top: 0px;
+    margin-top: 20px;
+    //padding-bottom: 20px;
+    background-color: #fff;    
+    margin-bottom: 20px;
+    overflow: auto;
+    
+}
+
+#Zawartosc  table
+{
+    font-family: Calibri;
+    font-size: medium;
+    background-color: #FFF;
+
+}
+
+#Zawartosc .lgodzin
+{
+    text-align: center;
+}
+
+#Zawartosc .ocena
+{
+    text-align: center;
+}
+/* ----------------------------------------------------SEKCJA LEWEGO MENU-------------------------------------------- */
+#LeweMenu
+{
+    padding-left: 10px;
+    margin-bottom: 20px;
+    background-color: #EEE;
+    float :left;
+
+}
+#LeweMenu ul, #LeweMenu ul li{
+    margin:0;
+    padding:0;
+
+    list-style:none;
+}
+
+
+#LeweMenu ul li{
+    background-color:#7f95db;
+    border:solid 1px #ccc;
+    width:200px;
+    cursor:pointer;
+}
+
+#LeweMenu ul li:hover{
+    background-color: #36e9bf; /*#6679e9*/
+    position:relative;
+}
+
+
+
+#LeweMenu ul li a{
+    padding:10px 15px;
+    color:#ffffff;
+    display:block;
+    text-decoration:none;
+}
+
+
+
+#LeweMenu ul li ul{
+    position:absolute;
+    display:none;
+    border: solid 1px #ccc;
+}
+
+
+#LeweMenu ul li:hover ul{
+    left:200px;
+    top: 0 ;
+    display:block;
+}
+
+
+#LeweMenu ul li ul li{
+    background-color:#cae25a;
+}
+
+
+#LeweMenu ul li:hover ul li:hover{
+    background-color:#b1b536;
+}
+
+
+#LeweMenu ul li ul li a{
+    color:#454444;
+    display:block;
+
+    width:170px;
+}
+#LeweMenu ul li ul li a:hover{
+    color: #1af2ff;
+    display:block;
+    width:170px;
+}
+
+#LeweMenu ul li:hover ul li ul{
+    position:absolute;
+    display:none;
+}
+
+
+#LeweMenu ul li:hover ul li:hover ul{
+    display:block;
+    left:200px;
+    top:0;
+}
+
+
+#LeweMenu ul li:hover ul li:hover ul li{
+    background:#86d3fa;
+}
+
+
+
+#LeweMenu ul li:hover ul li:hover ul li:hover{
+    background:#358ebc;
+}
+
+#LeweMenu ul li:hover ul li:hover ul li a{
+    color:#ffffff;
+}
+
+
+.clear{
+    clear:both;
+}
+
+/* ----------------------------------------------------SEKCJA STOPKI------------------------------------------------- */
+#Stopka
+{
+    clear: both;
+    text-align: center;
+    background-color: gold;  
+    
+}

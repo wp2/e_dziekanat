@@ -1,5 +1,6 @@
 package zut.wi.edziekanat.controllers;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/Login")
 public class LoginController 
 {
-	@GetMapping(value="/")
-	public String Hello()
+	@GetMapping(value="/")	
+	public String Login()
 	{
-		return "Login";
+		return "Login/Login";
 	}
+	
 	
 
 }

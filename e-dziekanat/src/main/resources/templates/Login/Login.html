@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/CSS/Login.css"/>
+<link rel="stylesheet" type="text/css" href="/CSS/GlobalStyle.css"/>
+</head>
+<body>	
+	<div id="Strona">		
+		<div id="Logo">			
+            <img src="/Images/E-dziekanat_logo.png" alt="e-dziekanat_logo" />            
+        </div>
+        <div id="PasekNawigacyjny">
+        	<ul class="Pusty"></ul>
+        </div>
+        <div id="LeweMenu">
+        </div>
+        <div id="Zawartosc">   
+	        <div id="Login">     	
+	        	Welcome to Login Page
+				<h1>Login Page</h1>
+				<form th:action="@{/Login/}" method="POST">				
+			    	<label for="username">Login</label>:
+			        <input type="text" id="username" name="Login"  /> <br />
+			        <label for="password">Hasło</label>:
+			        <input type="password" id="password" name="Hasło" /> <br />
+			        <input type="hidden" id="LoginType" value="Student"/>
+			        <input type="submit" value="Zaloguj" class="PrzyciskLogowania" />
+			    </form>
+	        </div>
+        </div>
+        <div id="Stopka">
+	        <hr />
+            <p>Wszystkie Prawa Zastrzeżone &copy; 2017 Wojciech Pardel</p>
+            <p>Kontakt : wpardel@gmail.com</p>
+            <hr />
+        </div>
+	</div>	
+</body>
+</html>
