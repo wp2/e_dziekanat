@@ -2,6 +2,8 @@ package zut.wi.edziekanat.controllers;
 
 
 
+import java.security.Principal;
+
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +24,9 @@ public class StudentController {
 	
 	@GetMapping(value="/DaneStudenta")
 	@Secured("ROLE_STUDENT")
-	public String DaneStudenta()
+	public String DaneStudenta(Principal principal)
 	{
+		// Pobierz informacje o studencie wykorzystujemy login podany przy autoryzacji z obiektu Principal
 		return "Student/DaneStudenta";
 	}
 

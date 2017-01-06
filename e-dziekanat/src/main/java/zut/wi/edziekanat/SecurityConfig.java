@@ -15,24 +15,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
+	// Handler do udanego logowania (głównie aby poprawnie przekierować żądanie)
 	@Autowired
 	LoginSuccessHandler loginSuccessHandler;
 	
+	// Handler do Nieudanego logowania
 	@Autowired
 	LoginFailureHandler loginFailureHandler;
 	
+	// Własny Provider do autoryzacji 
 	@Autowired
 	DziekanatSecurityProvider customSecurityProvider;
 	
 	@Autowired
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception
-	{
-		// TODO Auto-generated method stub
-		auth.authenticationProvider(this.customSecurityProvider);		
-		
+	{		
+		auth.authenticationProvider(this.customSecurityProvider);				
 	}
-
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception 
