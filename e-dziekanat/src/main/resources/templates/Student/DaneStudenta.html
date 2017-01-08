@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="Student/StudentLayout">
+
+<div layout:fragment="Zawartosc">
+	<p>Student Name is : <span th:text="${student.Imie}"></span></p>
+	<p> Album is <span th:text="${student.Album}"></span></p>
+</div>
+
+</html>

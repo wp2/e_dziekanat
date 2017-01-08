@@ -1,13 +1,16 @@
 package zut.wi.edziekanat.dao;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public class StudentDao 
+import org.springframework.data.repository.Repository;
+
+import zut.wi.edziekanat.entity.Student;
+
+public interface StudentDao extends Repository<Student, Integer> 
 {
-	public String getUserNamePassword(String Username)
-	{
-		return "Passwd";
-	}
-
+	Student findByAlbum(int Album);
+	
+	List<Student> findAll();
+	
+	Student findByLogin(String Login);
 }
