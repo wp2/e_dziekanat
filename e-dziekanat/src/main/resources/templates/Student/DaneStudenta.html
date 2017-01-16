@@ -4,8 +4,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorator="Student/StudentLayout">
 
 <div layout:fragment="Zawartosc">
-	<p>Student Name is : <span th:text="${student.Imie}"></span></p>
-	<p> Album is <span th:text="${student.Album}"></span></p>
+	<p>Imie : <span th:text="${student.getImie()}"></span></p>
+	<p>Nazwisko : <span th:text="${student.getNazwisko()}"></span></p>
+	<p>Login : <span th:text="${student.getLogin()}"></span></p>
+	<p> Album : <span th:text="${student.getAlbum()}"></span></p>
+	<p> Grupa Laboratoryjna : <span th:text="${student.getGrupaLab()}"></span></p>
 </div>
 
 </html>

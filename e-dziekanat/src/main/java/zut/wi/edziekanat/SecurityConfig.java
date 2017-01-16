@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		;
 		http.csrf().disable()
 		.authenticationProvider(this.customSecurityProvider);
+		http.logout().logoutUrl("/Login/logout/");
 	}
 	
 	

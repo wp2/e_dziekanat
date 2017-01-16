@@ -1,21 +1,38 @@
 package zut.wi.edziekanat.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import java.util.List;
 
-import javax.persistence.Id;
 
-@Entity
+
+
 public class GrupaLab 
-{
-	@Id
-	@Column(name="Id" , updatable = false) // PK nigdy nie powinien być edytowalny	
-	String id;
+{	
+	String id;	
 	
-	@Column(name="Licznosc")
-	int licznosc;
+	int licznosc;		
 	
-	@Column(name="IdGrupaCw")
-	String idGrupaCw;
+	List<Student> students;
+
+	public int getLicznosc() {
+		return licznosc;
+	}
+
+	public void setLicznosc(int licznosc) {
+		this.licznosc = licznosc;
+	}
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
+	public String getId() {
+		return id;
+	}
+	
+	
 
 }

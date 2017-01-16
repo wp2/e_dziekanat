@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import zut.wi.edziekanat.entity.Student;
 import zut.wi.edziekanat.services.StudentService;
 
 @Controller
@@ -34,8 +35,9 @@ public class StudentController
 	@Secured("ROLE_STUDENT")
 	public String DaneStudenta(Principal principal,Model model)
 	{
-		model.addAttribute("student", studentService.getStudentByAlbum(26815));
+		model.addAttribute("student", studentService.getStudentByAlbum(24897));
 		// Pobierz informacje o studencie wykorzystujemy login podany przy autoryzacji z obiektu Principal
+		Student s = studentService.getStudentByAlbum(24897);
 		return "Student/DaneStudenta";
 	}
 

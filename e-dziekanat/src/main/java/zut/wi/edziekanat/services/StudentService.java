@@ -16,7 +16,7 @@ public class StudentService
 	
 	public Student getStudentByAlbum(int Album)
 	{
-		return studentDao.findByAlbum(Album);
+		return studentDao.getStudentById(Album);
 	}
 	
 	

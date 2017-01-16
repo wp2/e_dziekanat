@@ -2,42 +2,36 @@ package zut.wi.edziekanat.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
+
+
 public class Dydaktyk 
 {
-	@Id
-	@Column(name="Id" , updatable = false) // PK nigdy nie powinien być edytowalny
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	int Id;
 	
-	@Column(name="Imie")
+	
 	String imie;
 	
-	@Column(name="Nazwisko")
+	
 	String nazwisko;
 	
-	@Column(name="Login")
+	
 	String login;
 	
-	@Column(name="Haslo")
+	
 	String haslo;
 	
-	@Column(name="Plec")
+	
 	String plec;
 	
-	@Column(name="DataUrodzenia")
+	
 	Date dataUrodzenia;
 	
-	@Column(name="Adres")
+	
 	String adres;
 	
-	@Column(name="Tytul")
+	
 	String tytul;
 
 	public String getImie() {

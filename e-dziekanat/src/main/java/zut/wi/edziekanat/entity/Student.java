@@ -3,47 +3,48 @@ package zut.wi.edziekanat.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
+
+
+
 public class Student implements Serializable
 {	
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="Album" , updatable = false) // PK nigdy nie powinien być edytowalny
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	int album;
 	
-	@Column(name="Imie")
+	
 	String imie;
 	
-	@Column(name="Nazwisko")
+
 	String nazwisko;
 	
-	@Column(name="Login")
+	
 	String login;
 	
-	@Column(name="Haslo")
+	
 	String haslo;
 	
-	@Column(name="Plec")
+	
 	String plec;
 	
-	@Column(name="DataUrodzenia")
-	Date dataUrodzenia;
 	
-	@Column(name="Adres")
+	Date dataUrodzenia;	
+
 	String adres;
+	
+	String grupaLab;
+
 
 	public int getAlbum() {
 		return album;
-	}
+	}		
 	
+	public void setAlbum(int album) {
+		this.album = album;
+	}
+
 	public String getImie() {
 		return imie;
 	}
@@ -99,6 +100,16 @@ public class Student implements Serializable
 	public void setAdres(String adres) {
 		this.adres = adres;
 	}
+
+	public String getGrupaLab() {
+		return grupaLab;
+	}
+
+	public void setGrupaLab(String grupaLab) {
+		this.grupaLab = grupaLab;
+	}
+	
+	
 
 	
 
