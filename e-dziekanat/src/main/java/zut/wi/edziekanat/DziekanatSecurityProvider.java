@@ -31,14 +31,11 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 		
 		String [] loginType = httpRequest.getParameterValues("LoginType"); // Typ Logowania
 		List<GrantedAuthority> grantedAuthority = new ArrayList<GrantedAuthority>();
-		grantedAuthority.add(new SimpleGrantedAuthority("ROLE_STUDENT")); 
-		String Login = auth.getName();
-		String Passwd = auth.getCredentials().toString();
-		return new UsernamePasswordAuthenticationToken("Hello","Passwd",grantedAuthority);	
-		/*if( loginType[0] != null && loginType[0].equals("Student") )
+		
+		if( loginType[0] != null && loginType[0].equals("Student") && httpRequest.getParameter("Login") != null && httpRequest.getParameter("Hasło") != null  )
 		{
-			String Login = auth.getName();
-			String Passwd = auth.getCredentials().toString();
+			String Login = httpRequest.getParameter("Login");
+			String Passwd = httpRequest.getParameter("Hasło");
 			if(studentService.getUserNamePassword(Login).equals(Passwd))
 			{
 				grantedAuthority.add(new SimpleGrantedAuthority("ROLE_STUDENT")); // Uprawnienia Studenta
@@ -58,7 +55,7 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 		else
 		{
 			return null;
-		}*/
+		}
 		
 		
 	}
