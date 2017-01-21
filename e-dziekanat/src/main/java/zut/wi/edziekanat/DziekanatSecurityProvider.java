@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import zut.wi.edziekanat.entity.Student;
 import zut.wi.edziekanat.services.StudentService;
 
 @Component
@@ -36,7 +37,8 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 		{
 			String Login = httpRequest.getParameter("Login");
 			String Passwd = httpRequest.getParameter("Hasło");
-			if(studentService.getUserNamePassword(Login).equals(Passwd))
+			Student student = studentService.getStudentByAlbum(Login);
+			if(student.getAlbum().equals(Login) && student.getHaslo().equals(Passwd))
 			{
 				grantedAuthority.add(new SimpleGrantedAuthority("ROLE_STUDENT")); // Uprawnienia Studenta
 				// TO DO Hook up service DB Pass AUTH 

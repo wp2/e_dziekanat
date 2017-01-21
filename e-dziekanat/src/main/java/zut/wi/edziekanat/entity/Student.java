@@ -12,7 +12,7 @@ public class Student implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	
-	int album;
+	String album;
 	
 	
 	String imie;
@@ -27,21 +27,24 @@ public class Student implements Serializable
 	String haslo;
 	
 	
-	String plec;
-	
+	String plec;	
 	
 	Date dataUrodzenia;	
 
 	String adres;
 	
 	String grupaLab;
+	
+	String kierunek;
+	
+	String specjalnosc;
 
 
-	public int getAlbum() {
+	public String getAlbum() {
 		return album;
 	}		
 	
-	public void setAlbum(int album) {
+	public void setAlbum(String album) {
 		this.album = album;
 	}
 
@@ -108,6 +111,24 @@ public class Student implements Serializable
 	public void setGrupaLab(String grupaLab) {
 		this.grupaLab = grupaLab;
 	}
+
+	public String getKierunek() {
+		return kierunek;
+	}
+
+	public void setKierunek(String kierunek) {
+		this.kierunek = kierunek;
+	}
+
+	public String getSpecjalnosc() {
+		return specjalnosc;
+	}
+
+	public void setSpecjalnosc(String specjalnosc) {
+		this.specjalnosc = specjalnosc;
+	}
+	
+	
 	
 	
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="Student/StudentLayout">
+
+<div layout:fragment="Zawartosc">	
+    <table border="1" cellpadding="5" width="100%">
+        <tr>
+            <td>Przedmiot</td>
+            <td>Forma Zajêæ</td>
+            <td>Prowadz¹cy</td>
+            <td>Liczba Godzin</td>
+           
+        </tr>
+        @{
+            foreach (var tmp in ViewBag.Subject.Przedmioty)
+            {
+                <tr>
+                    <td><p>@tmp.Nazwa</p></td>
+                    <td><p>@tmp.FormaZajeæ</p></td>
+                    <td><p>@tmp.Prowadz¹cy</p></td>  
+                    <td><p>@tmp.LiczbaGodzin</p></td>                  
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+</html>

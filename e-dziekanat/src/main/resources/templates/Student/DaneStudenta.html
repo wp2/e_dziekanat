@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorator="Student/StudentLayout">
+layout:decorator="Student/StudentLayout"
+lang="pl-PL">
+<meta charset="UTF-8"/>
 
 <div layout:fragment="Zawartosc">
-	<p>Imie : <span th:text="${student.getImie()}"></span></p>
+	<!-- <p>Imie : <span th:text="${student.getImie()}"></span></p>
 	<p>Nazwisko : <span th:text="${student.getNazwisko()}"></span></p>
 	<p>Login : <span th:text="${student.getLogin()}"></span></p>
 	<p> Album : <span th:text="${student.getAlbum()}"></span></p>
 	<p> Grupa Laboratoryjna : <span th:text="${student.getGrupaLab()}"></span></p>
+	<br />
+    <br />   -->    
+    <table border="1" align="center" width="50%">              
+        <tr><td><span class="DaneStudenta" ><b>Imię:</b></span><span class="DaneStudenta" th:text="${student.getImie()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Nazwisko:</b></span><span class="DaneStudenta" th:text="${student.getNazwisko()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Album:</b></span><span class="DaneStudenta" th:text="${student.getAlbum()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Adres:</b></span><span class="DaneStudenta" th:text="${student.getAdres()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Email:</b></span><span class="DaneStudenta" th:text="${student.getImie()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Data Urodzenia:</b></span><span class="DaneStudenta" th:text="${student.getDataUrodzenia()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Specjalność:</b></span><span class="DaneStudenta" th:text="${student.getSpecjalnosc()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Kierunek:</b></span><span class="DaneStudenta" th:text="${student.getKierunek()}"></span></td></tr>
+    </table>
 </div>
 
 </html>

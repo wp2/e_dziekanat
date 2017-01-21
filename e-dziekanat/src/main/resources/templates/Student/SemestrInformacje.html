@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="Student/StudentLayout"
+lang="pl-PL">
+<meta charset="UTF-8"/>
+
+<div layout:fragment="Zawartosc">
+	<!-- <p>Imie : <span th:text="${student.getImie()}"></span></p>
+	<p>Nazwisko : <span th:text="${student.getNazwisko()}"></span></p>
+	<p>Login : <span th:text="${student.getLogin()}"></span></p>
+	<p> Album : <span th:text="${student.getAlbum()}"></span></p>
+	<p> Grupa Laboratoryjna : <span th:text="${student.getGrupaLab()}"></span></p>
+	<br />
+    <br />   -->    
+    <table border="1" align="center" width="50%">              
+        <tr><td><span class="DaneStudenta" ><b>Grupa Laboratoryjna:</b></span><span class="DaneStudentaSemestr" th:text="${student['Lab']}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Grupa Ćwiczeniowa:</b></span><span class="DaneStudentaSemestr" th:text="${student['Cw']}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Grupa Wykładowa:</b></span><span class="DaneStudentaSemestr" th:text="${student['Wyk']}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Rocznik:</b></span><span class="DaneStudentaSemestr" th:text="${student['Rocz']}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Semestr:</b></span><span class="DaneStudentaSemestr" th:text="${student['NumerSemestru']}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Okres Semestralny:</b></span><span class="DaneStudentaSemestr" th:text="${student['TypSemestru']}"></span></td></tr>
+       
+    </table>
+</div>
+
+</html>

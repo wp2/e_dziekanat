@@ -35,10 +35,27 @@ public class StudentController
 	@Secured("ROLE_STUDENT")
 	public String DaneStudenta(Principal principal,Model model)
 	{
-		model.addAttribute("student", studentService.getStudentByAlbum(24897));
-		// Pobierz informacje o studencie wykorzystujemy login podany przy autoryzacji z obiektu Principal
-		Student s = studentService.getStudentByAlbum(24897);
+		model.addAttribute("student", studentService.getStudentDataByAlbum(principal.getName()));
+		// Pobierz informacje o studencie wykorzystujemy login podany przy autoryzacji z obiektu Principal		
 		return "Student/DaneStudenta";
+	}
+	
+	@GetMapping(value="/SemestrInformacje")
+	@Secured("ROLE_STUDENT")
+	public String semestrInfoStudenta(Principal principal,Model model)
+	{
+		model.addAttribute("student", studentService.getStudentSemestrAndGroupsInfo(principal.getName()));
+		// Pobierz informacje o studencie wykorzystujemy login podany przy autoryzacji z obiektu Principal		
+		return "Student/SemestrInformacje";
+	}
+	
+	@GetMapping(value="/Przedmioty")
+	@Secured("ROLE_STUDENT")
+	public String studentKursy(Principal principal,Model model)
+	{
+		model.addAttribute("student", studentService.getStudentSemestrAndGroupsInfo(principal.getName()));
+		// Pobierz informacje o studencie wykorzystujemy login podany przy autoryzacji z obiektu Principal		
+		return "Student/Przedmioty";
 	}
 
 }

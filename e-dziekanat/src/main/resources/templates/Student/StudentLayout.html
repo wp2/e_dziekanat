@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+lang="pl-PL">
 <head>
 <meta charset="UTF-8"/>
 <title>E-Dziekanat Student</title>
@@ -13,9 +14,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 		</div>
 		<div id="PasekNawigacyjny">
 			<ul class="Pelny">
-				<li><a href='#'>Opcja 1</a></li>
-				<li><a href='#'>Opcja 2</a></li>
-				<li><a href='#'>Opcja 3</a></li>
+				<li><a href='#'>Oceny</a></li>
+				<li><a href='#'>Dane</a></li>
+				<li><a href='#'>Dyplom</a></li>
 			</ul>
 		</div>
 		<div id="LeweMenu">
@@ -24,9 +25,26 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     <a href="">Student</a>
                     <ul>                    	
                         <li><a href="#">Oceny</a></li>
-                        <li><a href="DaneStudenta">DaneOsobowe</a></li>
-                        <li><a href="#">Przedmioty</a></li>                       
-                    </ul>                	
+                        <li><a href="DaneStudenta">DaneOsobowe</a></li>                           
+                        <li><a href="SemestrInformacje">Semestr-Informacje</a></li> 
+                        <li><a href="TokStudiow">Tok Studiów</a></li>                                  
+                        <li><a href="PrzedmiotySemestru">Semestr-Przedmioty</a></li>     
+                        <li><a href="KontaktzDziekanatem">Kontakt z Dziekanatem</a></li>       
+                    </ul>                         
+                                	
+                </li>
+                <li>
+                	<a href="">Dane Finansowe</a>
+                    <ul>                    	
+                        <li><a href="#">Należności</a></li>
+                            
+                    </ul> 
+                </li>
+                <li>
+                	<a href="">Dyplom</a>
+                    <ul>                    	
+                        <li><a href="#">Praca Dyplomowa - Informacje</a></li>                            
+                    </ul> 
                 </li>
                 <li><a href="#">Ogłoszenia</a></li>
                 <li><a href="#">Wyloguj</a></li>
