@@ -3,6 +3,7 @@ package zut.wi.edziekanat.controllers;
 
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -12,7 +13,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import zut.wi.edziekanat.entity.KursyStudenta;
 import zut.wi.edziekanat.entity.Student;
+import zut.wi.edziekanat.services.SMTP;
 import zut.wi.edziekanat.services.StudentService;
 
 @Controller
@@ -53,9 +56,18 @@ public class StudentController
 	@Secured("ROLE_STUDENT")
 	public String studentKursy(Principal principal,Model model)
 	{
-		model.addAttribute("student", studentService.getStudentSemestrAndGroupsInfo(principal.getName()));
-		// Pobierz informacje o studencie wykorzystujemy login podany przy autoryzacji z obiektu Principal		
+		List<KursyStudenta> kursy;
+		model.addAttribute("ListaKursow",studentService.getStudentKursy(principal.getName()) );
+		
 		return "Student/Przedmioty";
+	}
+	
+	@GetMapping(value="/KontaktzDziekanatem")
+	@Secured("ROLE_STUDENT")
+	public String kontaktzDziekanatem(Principal principal,Model model)
+	{
+		
+		return "Student/DziekanatEmail";
 	}
 
 }

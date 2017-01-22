@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import zut.wi.edziekanat.dao.StudentDao;
+import zut.wi.edziekanat.entity.KursyStudenta;
 import zut.wi.edziekanat.entity.Student;
 
 @Service
@@ -30,6 +31,11 @@ public class StudentService
 	public Map<String,String> getStudentSemestrAndGroupsInfo(String Album)
 	{
 		return studentDao.getStudentGrupaRocznikSemestr(Album);
+	}
+	
+	public List<KursyStudenta> getStudentKursy(String Album)
+	{
+		return studentDao.getStudentKursy(Album);
 	}
 	
 

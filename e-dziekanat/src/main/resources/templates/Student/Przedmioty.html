@@ -2,27 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorator="Student/StudentLayout">
-
+<meta charset="UTF-8"/>
 <div layout:fragment="Zawartosc">	
     <table border="1" cellpadding="5" width="100%">
         <tr>
-            <td>Przedmiot</td>
-            <td>Forma Zajêæ</td>
-            <td>Prowadz¹cy</td>
-            <td>Liczba Godzin</td>
-           
+            <th>Przedmiot</th>
+            <th>Forma ZajÄ™Ä‡</th>            
+            <th>ProwadzÄ…cy</th>
+            <th>Forma Zaliczenia</th>
+            <th>Liczba Godzin</th> 
+            <th>ECTS</th>          
         </tr>
-        @{
-            foreach (var tmp in ViewBag.Subject.Przedmioty)
-            {
-                <tr>
-                    <td><p>@tmp.Nazwa</p></td>
-                    <td><p>@tmp.FormaZajeæ</p></td>
-                    <td><p>@tmp.Prowadz¹cy</p></td>  
-                    <td><p>@tmp.LiczbaGodzin</p></td>                  
-                </tr>
-            }
-        }
+        <tr th:each="kurs : ${ListaKursow}">
+        	<td th:text="${kurs.nazwa}"></td>
+        	<td th:text="${kurs.formaZajec}"></td>
+        	<td th:text="${kurs.prowadzacy}"></td>
+        	<td th:text="${kurs.formaZaliczenia}"></td>
+        	<td th:text="${kurs.liczbaGodzin}"></td>
+        	<td th:text="${kurs.eCTS}"></td>
+        </tr>
+        
+
     </table>
 </div>
 

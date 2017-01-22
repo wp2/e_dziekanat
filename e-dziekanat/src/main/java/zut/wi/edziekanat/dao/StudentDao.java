@@ -16,6 +16,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import zut.wi.edziekanat.entity.KursyStudenta;
+import zut.wi.edziekanat.entity.KursyStudentaRowMapper;
 import zut.wi.edziekanat.entity.Student;
 import zut.wi.edziekanat.entity.StudentRowMapper;
 
@@ -167,15 +169,24 @@ public class StudentDao
 		return ocenyKursu;
 	}
 	
-	public List<String> getStudentKursy(String Album)
+	public List<KursyStudenta> getStudentKursy(String Album)
 	{
-		List<String> kursyStudenta = new ArrayList<String>();
-		String SQL = "SELECT k.* FROM Student st JOIN GrupaLab l ON st.IdGrupaLab = l.Id JOIN GrupaCw c ON l.IdGrupaCw = c.Id JOIN GrupaWyk w ON c.IdGrupaWyk = w.Id"+
-		"JOIN Rocznik r ON w.IdRocznik = r.Id"+
-		"JOIN Semestr s ON r.IdSemestr = s.NumerSemestru"+
-		"JOIN Kurs k ON k.IdSemestr = s.NumerSemestru"+
-		"WHERE st.Album = :album";
+		List<KursyStudenta> kursyStudenta ;
+		MapSqlParameterSource queryParams = new MapSqlParameterSource();
+		queryParams.addValue("album", Album);
+		String SQL = "SELECT k.*,fk.*,d.Tytul,d.Imie,d.Nazwisko FROM Student st JOIN GrupaLab l ON st.IdGrupaLab = l.Id "+
+     	" JOIN GrupaCw c ON l.IdGrupaCw = c.Id JOIN GrupaWyk w ON c.IdGrupaWyk = w.Id"+				
+		" JOIN Rocznik r ON w.IdRocznik = r.Id"+
+		" JOIN Semestr s ON r.IdSemestr = s.NumerSemestru"+
+		" JOIN Kurs k ON k.IdSemestr = s.NumerSemestru"+
+		" JOIN FormaKursu fk ON fk.IdKurs = k.Nazwa"+
+		" JOIN ProwadzacyForme pf ON pf.IdGrupaL = st.IdGrupaLab AND pf.IdForma = fk.Id"+
+		" JOIN Dydaktyk d ON d.Id = pf.IdDydaktyk"+
+		" WHERE st.Album = :album";
+		kursyStudenta = namedJdbcTemplate.query(SQL,queryParams, new KursyStudentaRowMapper());
 		return kursyStudenta;
 	}
+	
+	
 
 }
