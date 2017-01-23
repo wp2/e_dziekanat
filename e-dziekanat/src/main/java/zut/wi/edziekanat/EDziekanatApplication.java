@@ -9,4 +9,6 @@ public class EDziekanatApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EDziekanatApplication.class, args);
 	}
+	
+	
 }

@@ -2,11 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorator="Student/StudentLayout">
+
 <meta charset="UTF-8"/>
 <div layout:fragment="Zawartosc">
-	
-    Tytuł wiadomości:<input type="text" name="MsgTopic"/><br/>
-    Treść wiadomości:<textarea rows="5" cols="5"></textarea>
+	<script>
+		function cleanEmailForm()
+		{
+			
+		}
+	    function AjaxSendEmail(dest,topic,message)
+	    {
+	    	// wykonaj AJAX 
+	    	
+	    	
+	    	var emailDest = 'wpardel@gmail.com';
+	    	var emailTopic= 'AJAX Test';
+	    	var emailText = 'This is the test of SMTP in Edziekanat';
+	    	
+	    	$.ajax(
+   			{
+   				type:'GET',
+   				url: '/Student/KontaktzDziekanatem/SendEmail',   				
+   				data:'',
+   				timeout: 10000 ,
+   				success: function(e)
+   				{
+   					alert("OK");
+   				},
+   				error: function(e)
+   				{
+   					alert("ERR");
+   				}
+   			}
+   			);
+	    	          
+	    }
+	</script>
+	<script type="text/javascript">
+	jQuery(document).ready(function($)
+			{
+		$("#emailForm").submit(function(event)
+		{
+			event.preventDefault();
+			AjaxSendEmail("bla","bla2","bla3");
+		});
+			});
+	</script>
+	<form id="emailForm" >
+    Tytuł wiadomości:<br/>
+    <input type="text" id="topic"  name="MsgTopic"/><br/>
+    Treść wiadomości:<br/>
+    <textarea rows="25" cols="50" id="msg" name="MsgText"></textarea><br/>
+    <input type="submit" name="emailSend" value="Wyślij"/>
+    </form>
 </div>
+
+
 
 </html>

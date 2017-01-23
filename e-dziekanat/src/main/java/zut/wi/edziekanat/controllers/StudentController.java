@@ -6,12 +6,16 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import zut.wi.edziekanat.entity.KursyStudenta;
 import zut.wi.edziekanat.entity.Student;
@@ -26,6 +30,7 @@ public class StudentController
 	StudentService studentService;
 	
 	@GetMapping(value="/")	
+	@ResponseStatus(code=HttpStatus.OK)
 	//@PreAuthorize("hasRole('ROLE_DYDAKTYK') && isAuthenticated()")
 	@Secured("ROLE_STUDENT")
 	public String Home()
@@ -35,6 +40,7 @@ public class StudentController
 	}
 	
 	@GetMapping(value="/DaneStudenta")
+	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_STUDENT")
 	public String DaneStudenta(Principal principal,Model model)
 	{
@@ -44,6 +50,7 @@ public class StudentController
 	}
 	
 	@GetMapping(value="/SemestrInformacje")
+	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_STUDENT")
 	public String semestrInfoStudenta(Principal principal,Model model)
 	{
@@ -53,6 +60,7 @@ public class StudentController
 	}
 	
 	@GetMapping(value="/Przedmioty")
+	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_STUDENT")
 	public String studentKursy(Principal principal,Model model)
 	{
@@ -63,11 +71,23 @@ public class StudentController
 	}
 	
 	@GetMapping(value="/KontaktzDziekanatem")
+	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_STUDENT")
-	public String kontaktzDziekanatem(Principal principal,Model model)
-	{
+	public String kontaktzDziekanatem(Principal principal,Model model)	{
 		
 		return "Student/DziekanatEmail";
+	}
+	
+	// Metoda POST do wysłania emailu poprzez AJAX
+	@GetMapping(value="/KontaktzDziekanatem/SendEmail")
+	@ResponseStatus(code=HttpStatus.OK)
+	@Secured("ROLE_STUDENT")
+	public boolean wyslijEmail(Principal principal,@RequestParam(value="Destanation",required=true)String destanation,
+			@RequestParam("Topic")String topic,@RequestParam(value="Text",required=true)String text)
+	{
+		// wyślij email
+		SMTP smtp = new SMTP();
+		return smtp.PrepareMessage(destanation, topic, text);		
 	}
 
 }

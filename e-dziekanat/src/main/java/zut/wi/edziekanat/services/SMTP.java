@@ -193,7 +193,7 @@ public class SMTP
 		//System.out.println("SERVER AUTH RESPONSE = "+ReadResponseFromServer());
 		
 	}
-	private boolean PrepareMessage(String Destanation,String Topic,String MessageText)
+	public boolean PrepareMessage(String Destanation,String Topic,String MessageText)
 	{
 		WriteToServer("MAIL FROM: animanadv@o2.pl");
 		System.out.println(SingleResponse());

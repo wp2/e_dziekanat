@@ -52,6 +52,8 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 		}
 		else if(loginType[0].equals("Dydaktyk"))
 		{
+			String Login = httpRequest.getParameter("Login");
+			String Passwd = httpRequest.getParameter("Hasło");
 			return new UsernamePasswordAuthenticationToken("C", "d",grantedAuthority);
 		}
 		else

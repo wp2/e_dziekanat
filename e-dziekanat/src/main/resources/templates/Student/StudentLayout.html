@@ -6,6 +6,7 @@ lang="pl-PL">
 <meta charset="UTF-8"/>
 <title>E-Dziekanat Student</title>
 <link rel="stylesheet" type="text/css" href="/CSS/GlobalStyle.css"/>
+<script th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
 </head>
 <body>
 	<div id="Strona">
@@ -15,7 +16,7 @@ lang="pl-PL">
 		<div id="PasekNawigacyjny">
 			<ul class="Pelny">
 				<li><a href='#'>Oceny</a></li>
-				<li><a href='#'>Dane</a></li>
+				<li><a href='DaneStudenta'>Dane</a></li>
 				<li><a href='#'>Dyplom</a></li>
 			</ul>
 		</div>
@@ -47,7 +48,7 @@ lang="pl-PL">
                     </ul> 
                 </li>
                 <li><a href="#">Ogłoszenia</a></li>
-                <li><a href="#">Wyloguj</a></li>
+                <li><a th:href="@{/Login/logout/}">Wyloguj</a></li>
             </ul>
 		</div>
 		<div id="Zawartosc" layout:fragment="Zawartosc">
