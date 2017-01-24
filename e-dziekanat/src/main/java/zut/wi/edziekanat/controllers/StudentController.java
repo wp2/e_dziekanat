@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import zut.wi.edziekanat.entity.Email;
 import zut.wi.edziekanat.entity.KursyStudenta;
 import zut.wi.edziekanat.entity.Student;
 import zut.wi.edziekanat.services.SMTP;
@@ -73,21 +74,21 @@ public class StudentController
 	@GetMapping(value="/KontaktzDziekanatem")
 	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_STUDENT")
-	public String kontaktzDziekanatem(Principal principal,Model model)	{
-		
+	public String kontaktzDziekanatem(Principal principal,Email email)	
+	{		
 		return "Student/DziekanatEmail";
 	}
 	
 	// Metoda POST do wysłania emailu poprzez AJAX
-	@GetMapping(value="/KontaktzDziekanatem/SendEmail")
+	@PostMapping(value="/KontaktzDziekanatem")
 	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_STUDENT")
-	public boolean wyslijEmail(Principal principal,@RequestParam(value="Destanation",required=true)String destanation,
-			@RequestParam("Topic")String topic,@RequestParam(value="Text",required=true)String text)
+	public String wyslijEmail(Principal principal,Email email)
 	{
 		// wyślij email
 		SMTP smtp = new SMTP();
-		return smtp.PrepareMessage(destanation, topic, text);		
+		smtp.PrepareMessage("wpardel@gmail.com", email.topic, email.msgText);	
+		return "Student/DziekanatEmail";
 	}
 
 }

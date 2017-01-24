@@ -6,39 +6,31 @@ layout:decorator="Student/StudentLayout">
 <meta charset="UTF-8"/>
 <div layout:fragment="Zawartosc">
 	<script>
-		function cleanEmailForm()
-		{
-			
-		}
-	    function AjaxSendEmail(dest,topic,message)
-	    {
-	    	// wykonaj AJAX 
-	    	
-	    	
-	    	var emailDest = 'wpardel@gmail.com';
-	    	var emailTopic= 'AJAX Test';
-	    	var emailText = 'This is the test of SMTP in Edziekanat';
-	    	
-	    	$.ajax(
+		
+	    	(function($)
    			{
-   				type:'GET',
-   				url: '/Student/KontaktzDziekanatem/SendEmail',   				
-   				data:'',
-   				timeout: 10000 ,
-   				success: function(e)
-   				{
-   					alert("OK");
-   				},
-   				error: function(e)
-   				{
-   					alert("ERR");
-   				}
-   			}
-   			);
+	    		$form.on('submit',function(e){
+	    			e.preventDefault();
+	    			$.ajax(
+   		   			{
+   		   				url: $form.attr('action'),
+   		   				type: 'post',
+   		   				data: $form.serialize(),
+   		   				success : function(response)
+   		   				{
+   		   					response.preventDefault();
+   		   					alert("250 OK");
+   		   				}
+   		   			}
+   		   			);
+	    		});
+		    	
+   			}(jQuery)
+	    	);
 	    	          
-	    }
+	    
 	</script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	jQuery(document).ready(function($)
 			{
 		$("#emailForm").submit(function(event)
@@ -47,12 +39,17 @@ layout:decorator="Student/StudentLayout">
 			AjaxSendEmail("bla","bla2","bla3");
 		});
 			});
-	</script>
-	<form id="emailForm" >
+	</script> -->
+	<form id="emailForm" th:action="@{/Student/KontaktzDziekanatem/SendEmail}" method="POST" th:object="${email}" >
+	Adres docelowy:<br/>
+	<select th:field="*{destanation}" name="emailDestanation">
+		<option value="wpardel@gmail.com">Dziekan WI Wojciech Pardel</option>
+	</select><br/>
+	
     Tytuł wiadomości:<br/>
-    <input type="text" id="topic"  name="MsgTopic"/><br/>
+    <input type="text" id="topic"  name="MsgTopic" th:field="*{topic}"/><br/>
     Treść wiadomości:<br/>
-    <textarea rows="25" cols="50" id="msg" name="MsgText"></textarea><br/>
+    <textarea rows="25" cols="50" id="msg" name="MsgText" th:field="*{msgText}"></textarea><br/>
     <input type="submit" name="emailSend" value="Wyślij"/>
     </form>
 </div>

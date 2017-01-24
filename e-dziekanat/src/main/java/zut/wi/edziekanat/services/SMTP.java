@@ -53,7 +53,7 @@ public class SMTP
 		this.SMTP_SERVER = "poczta.o2.pl";
 		this.SMTP_PORT= 25;
 		this.UserName = "YW5pbWFuYWR2QG8yLnBs";
-		this.Passwd = "UHJvdG90eXBlMg==";		
+		this.Passwd = "";		
 	}
 	private boolean Connect() 
 	{
