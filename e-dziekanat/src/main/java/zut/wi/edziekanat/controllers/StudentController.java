@@ -4,17 +4,21 @@ package zut.wi.edziekanat.controllers;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import zut.wi.edziekanat.entity.Email;
@@ -80,15 +84,30 @@ public class StudentController
 	}
 	
 	// Metoda POST do wysłania emailu poprzez AJAX
-	@PostMapping(value="/KontaktzDziekanatem")
+	@PostMapping(value="/KontaktzDziekanatem",consumes="application/json")	
+	@Secured("ROLE_STUDENT")	
+	public @ResponseBody String wyslijEmail(@RequestBody Email email)
+	{	
+		// TODO Send Email		
+		return "250 OK";
+	}
+	
+	@GetMapping(value="/PracaDyplomowa")
 	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_STUDENT")
-	public String wyslijEmail(Principal principal,Email email)
+	public String pracaDyplomowa(Principal principal,Model model)	
 	{
-		// wyślij email
-		SMTP smtp = new SMTP();
-		smtp.PrepareMessage("wpardel@gmail.com", email.topic, email.msgText);	
-		return "Student/DziekanatEmail";
+		model.addAttribute("praca",this.studentService.getStudentPracaDyplomowa(principal.getName()));
+		return "Student/DyplomowaInformacje";
+	}
+	
+	@GetMapping(value="/Finanse")
+	@ResponseStatus(code=HttpStatus.OK)
+	@Secured("ROLE_STUDENT")
+	public String należnościStudenta(Principal principal,Model model)	
+	{
+		model.addAttribute("ListaOplat",this.studentService.getStudentOplaty(principal.getName()));
+		return "Student/Finanse";
 	}
 
 }

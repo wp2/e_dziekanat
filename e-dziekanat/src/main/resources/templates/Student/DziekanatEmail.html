@@ -4,43 +4,51 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorator="Student/StudentLayout">
 
 <meta charset="UTF-8"/>
+<script th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
 <div layout:fragment="Zawartosc">
 	<script>
+	var email = {}
+	email["destanation"] = "Hello";
+	email["topic"] = "World";
+	email["msgText"] = "World";
 		
-	    	(function($)
-   			{
-	    		$form.on('submit',function(e){
-	    			e.preventDefault();
-	    			$.ajax(
-   		   			{
-   		   				url: $form.attr('action'),
-   		   				type: 'post',
-   		   				data: $form.serialize(),
-   		   				success : function(response)
-   		   				{
-   		   					response.preventDefault();
-   		   					alert("250 OK");
-   		   				}
-   		   			}
-   		   			);
-	    		});
-		    	
-   			}(jQuery)
-	    	);
+	$(document).ready(function(){
+	    
+	    
+	    $("#emailForm").submit(function(e){ 
+	    	e.preventDefault();
+	    	$.ajax({
+				type : "POST",
+				contentType : "application/x-www-form-urlencoded",
+				url : "http://localhost:8080/Student/KontaktzDziekanatem",
+				headers: { 
+					'Accept': 'application/json',
+					'Content-Type': 'application/json' 
+					},
+				data : JSON.stringify(email),
+				dataType : 'text',
+				timeout : 100000,
+				success : function(data) {
+					console.log("SUCCESS: ", data);
+					
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+				
+				},
+				done : function(e) {
+					console.log("DONE");
+					
+				}
+			});
+	    });
+	    
+	    
+	});
 	    	          
 	    
 	</script>
-	<!-- <script type="text/javascript">
-	jQuery(document).ready(function($)
-			{
-		$("#emailForm").submit(function(event)
-		{
-			event.preventDefault();
-			AjaxSendEmail("bla","bla2","bla3");
-		});
-			});
-	</script> -->
-	<form id="emailForm" th:action="@{/Student/KontaktzDziekanatem/SendEmail}" method="POST" th:object="${email}" >
+	<form id="emailForm" th:action="@{/Student/KontaktzDziekanatem}" method="POST" th:object="${email}" >
 	Adres docelowy:<br/>
 	<select th:field="*{destanation}" name="emailDestanation">
 		<option value="wpardel@gmail.com">Dziekan WI Wojciech Pardel</option>

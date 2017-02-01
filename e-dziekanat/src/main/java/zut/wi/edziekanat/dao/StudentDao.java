@@ -18,7 +18,11 @@ import org.springframework.stereotype.Repository;
 
 import zut.wi.edziekanat.entity.KursyStudenta;
 import zut.wi.edziekanat.entity.KursyStudentaRowMapper;
+import zut.wi.edziekanat.entity.Oplata;
+import zut.wi.edziekanat.entity.OplataRowMapper;
+import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.Student;
+import zut.wi.edziekanat.entity.StudentPracaDyplomowaMapper;
 import zut.wi.edziekanat.entity.StudentRowMapper;
 
 @Repository
@@ -51,16 +55,13 @@ public class StudentDao
 	}
 	
 	public Student getStudentDataById(String Id)
-	{
-		try
-		{
+	{		
 			Student student = new Student();
 			MapSqlParameterSource queryParams = new MapSqlParameterSource();
 			queryParams.addValue("album", Id);
 			SqlRowSet rs1 = namedJdbcTemplate.queryForRowSet("SELECT *,k.Nazwa FROM Student s JOIN Kierunek k ON k.Id = s.IdKierunek "
 					+ "WHERE s.Album = :album", queryParams);
-			MapSqlParameterSource queryParams2 = new MapSqlParameterSource();
-			//int t = rs1.getInt("IdKierunek");
+			MapSqlParameterSource queryParams2 = new MapSqlParameterSource();			
 			
 			if(rs1.next())
 			{
@@ -80,25 +81,11 @@ public class StudentDao
 			{
 				student.setSpecjalnosc(rs2.getString("Nazwa"));
 			}
-			return student;
-		}
-		catch(IncorrectResultSizeDataAccessException e)
-		{
-			System.out.println("Record does not exsits");
-			return null;
-		}
-		catch(DataAccessException e)
-		{
-			e.printStackTrace();
-			return null;
-		}	
-		
+			return student;		
 	}
 	
 	public Map<String,String> getStudentGrupaRocznikSemestr(String studentAlbum)
-	{
-		try
-		{
+	{		
 			MapSqlParameterSource queryParams = new MapSqlParameterSource();
 			queryParams.addValue("album", studentAlbum);
 			String SQL = "SELECT l.Id AS Lab , c.Id AS Cw , w.Id AS Wyk , r.RocznikAkademicki AS Rocz , s.NumerSemestru , s.TypSemestru FROM Student st"+
@@ -120,23 +107,7 @@ public class StudentDao
 				studentEduInfo.put("NumerSemestru",rowSet.getString("NumerSemestru"));
 				studentEduInfo.put("TypSemestru",rowSet.getString("TypSemestru"));
 			}
-			return studentEduInfo;
-		}
-		catch(IncorrectResultSizeDataAccessException e)
-		{
-			System.err.println("Record does not exsits");
-			return null;
-		}
-		catch(BadSqlGrammarException e)
-		{
-			System.err.println("SQL Grammar ERROR in getStudentGrupaRocznikSemsetr");
-			e.printStackTrace();
-			return null;
-		}
-		catch(DataAccessException e)
-		{
-			return null;
-		}	
+			return studentEduInfo;		
 		
 	}
 	
@@ -185,6 +156,34 @@ public class StudentDao
 		" WHERE st.Album = :album";
 		kursyStudenta = namedJdbcTemplate.query(SQL,queryParams, new KursyStudentaRowMapper());
 		return kursyStudenta;
+	}
+	
+	public PracaDyplomowa getStudentPracaDyplomowa(String Student)
+	{
+		PracaDyplomowa pracaDyplomowa ;
+		MapSqlParameterSource queryParams = new MapSqlParameterSource();
+		queryParams.addValue("student",Student);
+		String SQL = "SELECT dp.TytulPracy,dp.OcenaPierwszego,dp.OcenaDrugiego,dp.TerminZlozeniaPracy,dp.DataZlozeniaPracy,dp.DataObrony ,d1.Tytul,d1.Imie,d1.Nazwisko,"
+				+ "d2.Tytul AS d2Tytul,d2.Imie AS d2Imie,d2.Nazwisko AS d2Nazwisko, "
+				+ "d3.Tytul AS d3Tytul,d3.Imie AS d3Imie,d3.Nazwisko AS d3Nazwisko  "
+				+ ",d4.Tytul AS d4Tytul,d4.Imie AS d4Imie,d4.Nazwisko AS d4Nazwisko "
+				+ "FROM Dyplomowa dp "
+				+ "JOIN Dydaktyk d1 ON dp.IdDydaktyk = d1.Id "
+				+ "JOIN Dydaktyk d2 ON dp.IdPierwszyRecenzent = d2.Id "
+				+ "JOIN Dydaktyk d3 ON dp.IdDrugiRecenzent = d3.Id  "
+				+ "JOIN Dydaktyk d4 ON dp.IdPrzewodnicacy = d4.Id "
+				+ " WHERE dp.IdStudent = :student";
+		pracaDyplomowa = namedJdbcTemplate.queryForObject(SQL,queryParams, new StudentPracaDyplomowaMapper());
+		return pracaDyplomowa;
+	}
+	
+	public List<Oplata> getStudentOplaty(String Student)
+	{
+		MapSqlParameterSource queryParams = new MapSqlParameterSource();
+		queryParams.addValue("student",Student);
+		String SQL = "SELECT * FROM Naleznosci WHERE IdStudent = :student";
+		List<Oplata> oplaty = namedJdbcTemplate.query(SQL, queryParams, new OplataRowMapper());
+		return oplaty;
 	}
 	
 	
