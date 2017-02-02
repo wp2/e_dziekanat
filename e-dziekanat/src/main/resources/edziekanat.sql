@@ -17,7 +17,7 @@ USE `edziekanat`;
 
 -- Zrzut struktury tabela edziekanat.dydaktyk
 CREATE TABLE IF NOT EXISTS `dydaktyk` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Imie` varchar(50) NOT NULL,
   `Nazwisko` varchar(50) NOT NULL,
   `Login` varchar(50) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `dydaktyk` (
   `Adres` varchar(50) NOT NULL,
   `Tytul` varchar(50) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Zrzucanie danych dla tabeli edziekanat.dydaktyk: ~5 rows (około)
 /*!40000 ALTER TABLE `dydaktyk` DISABLE KEYS */;
@@ -40,29 +40,66 @@ INSERT INTO `dydaktyk` (`Id`, `Imie`, `Nazwisko`, `Login`, `Haslo`, `Plec`, `Dat
 /*!40000 ALTER TABLE `dydaktyk` ENABLE KEYS */;
 
 
+-- Zrzut struktury tabela edziekanat.dyplomowa
+CREATE TABLE IF NOT EXISTS `dyplomowa` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `IdStudent` varchar(5) NOT NULL,
+  `IdDydaktyk` int(11) NOT NULL,
+  `TytulPracy` varchar(500) NOT NULL,
+  `IdPierwszyRecenzent` int(11) NOT NULL,
+  `IdDrugiRecenzent` int(11) NOT NULL,
+  `OcenaPierwszego` float NOT NULL,
+  `OcenaDrugiego` float NOT NULL,
+  `TerminZlozeniaPracy` date NOT NULL,
+  `DataZlozeniaPracy` date DEFAULT NULL,
+  `IdPrzewodnicacy` int(11) DEFAULT NULL,
+  `DataObrony` date DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `FKIdStudent` (`IdStudent`),
+  KEY `FKIdPromotor` (`IdDydaktyk`),
+  KEY `FKIdRecenzent1` (`IdPierwszyRecenzent`),
+  KEY `FKIdRecenzent2` (`IdDrugiRecenzent`),
+  KEY `FkIdPrzewodnicacy` (`IdPrzewodnicacy`),
+  CONSTRAINT `FKIdPromotor` FOREIGN KEY (`IdDydaktyk`) REFERENCES `dydaktyk` (`Id`),
+  CONSTRAINT `FKIdRecenzent1` FOREIGN KEY (`IdPierwszyRecenzent`) REFERENCES `dydaktyk` (`Id`),
+  CONSTRAINT `FKIdRecenzent2` FOREIGN KEY (`IdDrugiRecenzent`) REFERENCES `dydaktyk` (`Id`),
+  CONSTRAINT `FKIdStudent` FOREIGN KEY (`IdStudent`) REFERENCES `student` (`Album`),
+  CONSTRAINT `FkIdPrzewodnicacy` FOREIGN KEY (`IdPrzewodnicacy`) REFERENCES `dydaktyk` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Zrzucanie danych dla tabeli edziekanat.dyplomowa: ~0 rows (około)
+/*!40000 ALTER TABLE `dyplomowa` DISABLE KEYS */;
+INSERT INTO `dyplomowa` (`Id`, `IdStudent`, `IdDydaktyk`, `TytulPracy`, `IdPierwszyRecenzent`, `IdDrugiRecenzent`, `OcenaPierwszego`, `OcenaDrugiego`, `TerminZlozeniaPracy`, `DataZlozeniaPracy`, `IdPrzewodnicacy`, `DataObrony`) VALUES
+	(1, '24897', 1, 'Analiza mozliwosci baz SQL', 2, 3, 0, 0, '2017-12-01', NULL, 4, NULL);
+/*!40000 ALTER TABLE `dyplomowa` ENABLE KEYS */;
+
+
 -- Zrzut struktury tabela edziekanat.formakursu
 CREATE TABLE IF NOT EXISTS `formakursu` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `IdKurs` varchar(50) NOT NULL,
   `Nazwa` varchar(50) DEFAULT NULL,
-  `Typ` varchar(3) NOT NULL,
+  `Typ` varchar(20) NOT NULL,
   `Waga` float NOT NULL,
   `LiczbaGodzin` int(11) NOT NULL,
-  `FormaZaliczenia` varchar(3) DEFAULT NULL,
+  `FormaZaliczenia` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `FKIdKurs` (`IdKurs`),
   CONSTRAINT `FKIdKurs` FOREIGN KEY (`IdKurs`) REFERENCES `kurs` (`Nazwa`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Zrzucanie danych dla tabeli edziekanat.formakursu: ~6 rows (około)
+-- Zrzucanie danych dla tabeli edziekanat.formakursu: ~9 rows (około)
 /*!40000 ALTER TABLE `formakursu` DISABLE KEYS */;
 INSERT INTO `formakursu` (`Id`, `IdKurs`, `Nazwa`, `Typ`, `Waga`, `LiczbaGodzin`, `FormaZaliczenia`) VALUES
-	(1, 'Analiza Matematyczna i Algebra Liniowa', NULL, 'A', 0.5, 30, 'zal'),
-	(2, 'Analiza Matematyczna i Algebra Liniowa', NULL, 'W', 0.5, 15, 'egz'),
-	(3, 'Szkolenie Biblioteczne', NULL, 'W', 1, 15, 'zal'),
-	(4, 'Fizyka', NULL, 'W', 0.4, 30, 'egz'),
-	(5, 'Fizyka', NULL, 'A', 0.3, 15, 'zal'),
-	(6, 'Fizyka', NULL, 'L', 0.3, 15, 'zal');
+	(1, 'Analiza Matematyczna i Algebra Liniowa', NULL, 'A', 0.5, 30, 'Zaliczenie'),
+	(2, 'Analiza Matematyczna i Algebra Liniowa', NULL, 'W', 0.5, 15, 'Egzamin'),
+	(3, 'Szkolenie Biblioteczne', NULL, 'W', 1, 15, 'Zaliczenie'),
+	(4, 'Fizyka', NULL, 'W', 0.4, 30, 'Egzamin'),
+	(5, 'Fizyka', NULL, 'A', 0.3, 15, 'Zaliczenie'),
+	(6, 'Fizyka', NULL, 'L', 0.3, 15, 'Zaliczenie'),
+	(7, 'Analiza Matematyczna i Algebra Liniowa', NULL, 'OK', 0, 0, 'Ocena Koncowa'),
+	(8, 'Szkolenie Biblioteczne', NULL, 'OK', 0, 0, 'Ocena Koncowa'),
+	(9, 'Fizyka', NULL, 'OK', 0, 0, 'Ocena Koncowa');
 /*!40000 ALTER TABLE `formakursu` ENABLE KEYS */;
 
 
@@ -109,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `grupawyk` (
   CONSTRAINT `FKIdRocznik` FOREIGN KEY (`IdRocznik`) REFERENCES `rocznik` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Zrzucanie danych dla tabeli edziekanat.grupawyk: ~1 rows (około)
+-- Zrzucanie danych dla tabeli edziekanat.grupawyk: ~0 rows (około)
 /*!40000 ALTER TABLE `grupawyk` DISABLE KEYS */;
 INSERT INTO `grupawyk` (`Id`, `IdRocznik`) VALUES
 	('I1-S1W1', 1);
@@ -118,10 +155,10 @@ INSERT INTO `grupawyk` (`Id`, `IdRocznik`) VALUES
 
 -- Zrzut struktury tabela edziekanat.kierunek
 CREATE TABLE IF NOT EXISTS `kierunek` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Nazwa` varchar(50) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Zrzucanie danych dla tabeli edziekanat.kierunek: ~0 rows (około)
 /*!40000 ALTER TABLE `kierunek` DISABLE KEYS */;
@@ -152,9 +189,28 @@ INSERT INTO `kurs` (`Nazwa`, `IdSemestr`, `ECTS`) VALUES
 /*!40000 ALTER TABLE `kurs` ENABLE KEYS */;
 
 
+-- Zrzut struktury tabela edziekanat.naleznosci
+CREATE TABLE IF NOT EXISTS `naleznosci` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `IdStudent` varchar(50) NOT NULL,
+  `Konto` int(11) NOT NULL,
+  `Tytul` varchar(100) NOT NULL,
+  `Kwota` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `FKIdStudentOplata` (`IdStudent`),
+  CONSTRAINT `FKIdStudentOplata` FOREIGN KEY (`IdStudent`) REFERENCES `student` (`Album`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Zrzucanie danych dla tabeli edziekanat.naleznosci: ~0 rows (około)
+/*!40000 ALTER TABLE `naleznosci` DISABLE KEYS */;
+INSERT INTO `naleznosci` (`Id`, `IdStudent`, `Konto`, `Tytul`, `Kwota`) VALUES
+	(1, '24897', 2039122232, 'Elektroniczna Legitymacja', 20);
+/*!40000 ALTER TABLE `naleznosci` ENABLE KEYS */;
+
+
 -- Zrzut struktury tabela edziekanat.ocena
 CREATE TABLE IF NOT EXISTS `ocena` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `IdStudent` varchar(5) NOT NULL,
   `IdProwadzacyForme` int(11) NOT NULL,
   `ITermin` float DEFAULT NULL,
@@ -167,20 +223,26 @@ CREATE TABLE IF NOT EXISTS `ocena` (
   KEY `FKIdStudentOcena` (`IdStudent`),
   CONSTRAINT `FKIdProwadzacyZajecia` FOREIGN KEY (`IdProwadzacyForme`) REFERENCES `prowadzacyforme` (`Id`),
   CONSTRAINT `FKIdStudentOcena` FOREIGN KEY (`IdStudent`) REFERENCES `student` (`Album`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Zrzucanie danych dla tabeli edziekanat.ocena: ~2 rows (około)
+-- Zrzucanie danych dla tabeli edziekanat.ocena: ~4 rows (około)
 /*!40000 ALTER TABLE `ocena` DISABLE KEYS */;
 INSERT INTO `ocena` (`Id`, `IdStudent`, `IdProwadzacyForme`, `ITermin`, `IITermin`, `IPoprawka`, `IIPoprawka`, `Komisja`) VALUES
 	(1, '24897', 1, 2, 4, NULL, NULL, NULL),
 	(2, '24897', 2, 2, 3.5, NULL, NULL, NULL),
-	(3, '24897', 3, 5, NULL, NULL, NULL, NULL);
+	(3, '24897', 3, 5, NULL, NULL, NULL, NULL),
+	(5, '24897', 4, NULL, NULL, NULL, NULL, NULL),
+	(6, '24897', 5, NULL, NULL, NULL, NULL, NULL),
+	(7, '24897', 6, NULL, NULL, NULL, NULL, NULL),
+	(8, '24897', 7, NULL, NULL, NULL, NULL, NULL),
+	(9, '24897', 8, NULL, NULL, NULL, NULL, NULL),
+	(10, '24897', 9, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `ocena` ENABLE KEYS */;
 
 
 -- Zrzut struktury tabela edziekanat.ogloszenia
 CREATE TABLE IF NOT EXISTS `ogloszenia` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Tytul` varchar(250) NOT NULL,
   `DataDodania` date NOT NULL,
   `Dodal` varchar(5) NOT NULL,
@@ -197,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `ogloszenia` (
 
 -- Zrzut struktury tabela edziekanat.prowadzacyforme
 CREATE TABLE IF NOT EXISTS `prowadzacyforme` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `IdDydaktyk` int(11) NOT NULL,
   `IdForma` int(11) NOT NULL,
   `IdGrupaL` varchar(50) NOT NULL,
@@ -208,9 +270,9 @@ CREATE TABLE IF NOT EXISTS `prowadzacyforme` (
   CONSTRAINT `FKIdDydaktyk` FOREIGN KEY (`IdDydaktyk`) REFERENCES `dydaktyk` (`Id`),
   CONSTRAINT `FKIdForma` FOREIGN KEY (`IdForma`) REFERENCES `formakursu` (`Id`),
   CONSTRAINT `FKIdGrupaL` FOREIGN KEY (`IdGrupaL`) REFERENCES `grupalab` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Zrzucanie danych dla tabeli edziekanat.prowadzacyforme: ~5 rows (około)
+-- Zrzucanie danych dla tabeli edziekanat.prowadzacyforme: ~9 rows (około)
 /*!40000 ALTER TABLE `prowadzacyforme` DISABLE KEYS */;
 INSERT INTO `prowadzacyforme` (`Id`, `IdDydaktyk`, `IdForma`, `IdGrupaL`) VALUES
 	(1, 1, 1, 'I1-S1L1A'),
@@ -218,13 +280,16 @@ INSERT INTO `prowadzacyforme` (`Id`, `IdDydaktyk`, `IdForma`, `IdGrupaL`) VALUES
 	(3, 3, 3, 'I1-S1L1A'),
 	(4, 5, 4, 'I1-S1L1A'),
 	(5, 5, 5, 'I1-S1L1A'),
-	(6, 4, 6, 'I1-S1L1A');
+	(6, 4, 6, 'I1-S1L1A'),
+	(7, 2, 7, 'I1-S1L1A'),
+	(8, 3, 8, 'I1-S1L1A'),
+	(9, 5, 9, 'I1-S1L1A');
 /*!40000 ALTER TABLE `prowadzacyforme` ENABLE KEYS */;
 
 
 -- Zrzut struktury tabela edziekanat.rocznik
 CREATE TABLE IF NOT EXISTS `rocznik` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `IdSemestr` int(11) NOT NULL,
   `RocznikAkademicki` varchar(50) NOT NULL,
   `DataPoczatkowa` date NOT NULL,
@@ -232,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `rocznik` (
   PRIMARY KEY (`Id`),
   KEY `FKIdSemestr` (`IdSemestr`),
   CONSTRAINT `FKIdSemestr` FOREIGN KEY (`IdSemestr`) REFERENCES `semestr` (`NumerSemestru`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Zrzucanie danych dla tabeli edziekanat.rocznik: ~0 rows (około)
 /*!40000 ALTER TABLE `rocznik` DISABLE KEYS */;
@@ -258,13 +323,13 @@ INSERT INTO `semestr` (`NumerSemestru`, `TypSemestru`) VALUES
 
 -- Zrzut struktury tabela edziekanat.specjalnosc
 CREATE TABLE IF NOT EXISTS `specjalnosc` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Nazwa` varchar(50) NOT NULL,
   `IdKierunek` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `FKIdSKierunek` (`IdKierunek`),
   CONSTRAINT `FKIdSKierunek` FOREIGN KEY (`IdKierunek`) REFERENCES `kierunek` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Zrzucanie danych dla tabeli edziekanat.specjalnosc: ~0 rows (około)
 /*!40000 ALTER TABLE `specjalnosc` DISABLE KEYS */;

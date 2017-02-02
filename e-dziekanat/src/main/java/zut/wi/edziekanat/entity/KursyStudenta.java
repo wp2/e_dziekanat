@@ -13,6 +13,8 @@ public class KursyStudenta
 	String formaZajec;
 	
 	int liczbaGodzin;
+	
+	StudentOceny Ocena;
 
 	public String getNazwa() {
 		return nazwa;
@@ -60,6 +62,14 @@ public class KursyStudenta
 
 	public void setLiczbaGodzin(int liczbaGodzin) {
 		this.liczbaGodzin = liczbaGodzin;
+	}
+
+	public StudentOceny getOcena() {
+		return Ocena;
+	}
+
+	public void setOcena(StudentOceny ocena) {
+		Ocena = ocena;
 	}
 	
 	

@@ -109,5 +109,15 @@ public class StudentController
 		model.addAttribute("ListaOplat",this.studentService.getStudentOplaty(principal.getName()));
 		return "Student/Finanse";
 	}
+	
+	@GetMapping(value="/Oceny")
+	@ResponseStatus(code=HttpStatus.OK)
+	@Secured("ROLE_STUDENT")
+	public String ocenyStudenta(Principal principal,Model model)	
+	{
+		model.addAttribute("ListaKursow",this.studentService.getStudentOceny(principal.getName()));
+		return "Student/StudentOceny";
+	}
+
 
 }

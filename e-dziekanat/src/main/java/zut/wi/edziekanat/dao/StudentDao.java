@@ -22,6 +22,8 @@ import zut.wi.edziekanat.entity.Oplata;
 import zut.wi.edziekanat.entity.OplataRowMapper;
 import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.Student;
+import zut.wi.edziekanat.entity.StudentOceny;
+import zut.wi.edziekanat.entity.StudentOcenyRowMapper;
 import zut.wi.edziekanat.entity.StudentPracaDyplomowaMapper;
 import zut.wi.edziekanat.entity.StudentRowMapper;
 
@@ -128,18 +130,40 @@ public class StudentDao
 		return true;
 	}
 	
-	public List<String> getStudentKursOceny(String Album,String Kurs)
+	public List<StudentOceny> getStudentKursOceny(String Album,String Kurs)
 	{
-		List<String> ocenyKursu = new ArrayList<String>();
-		String SQL = "Select o.IdStudent,d.Imie,d.Nazwisko,k.Nazwa,k.ECTS,fk.Nazwa,fk.Typ,fk.LiczbaGodzin,o.ITermin,o.IITermin,o.IPoprawka,o.IIPoprawka,o.Komisja FROM ocena o"+ 
-		"JOIN ProwadzacyForme pf ON pf.Id = o.IdProwadzacyForme"+
-		"JOIN FormaKursu fk ON fk.Id = pf.IdForma AND fk.IdKurs = :kurs"+
-		"JOIN Dydaktyk d ON d.Id = pf.IdDydaktyk"+
-		"JOIN Kurs k ON  k.Nazwa = fk.IdKurs"+
-		"WHERE o.IdStudent = :album";
+		List<StudentOceny> ocenyKursu = new ArrayList<StudentOceny>();
+		MapSqlParameterSource queryParams = new MapSqlParameterSource();
+		queryParams.addValue("album", Album);
+		queryParams.addValue("kurs", Kurs);
+		String SQL = "Select o.IdStudent,d.Imie,d.Tytul,d.Nazwisko,k.Nazwa,k.ECTS,fk.Nazwa,fk.Typ,fk.LiczbaGodzin,fk.FormaZaliczenia,o.ITermin,o.IITermin,o.IPoprawka,o.IIPoprawka,o.Komisja FROM ocena o "+ 
+		"JOIN ProwadzacyForme pf ON pf.Id = o.IdProwadzacyForme "+
+		"JOIN FormaKursu fk ON fk.Id = pf.IdForma AND fk.IdKurs = :kurs "+
+		"JOIN Dydaktyk d ON d.Id = pf.IdDydaktyk "+
+		"JOIN Kurs k ON  k.Nazwa = fk.IdKurs "+
+		"WHERE o.IdStudent = :album ";
+		ocenyKursu = namedJdbcTemplate.query(SQL, queryParams,new StudentOcenyRowMapper());
+		
 		return ocenyKursu;
 	}
 	
+	public List<String> getStudentKursNazwy(String Student)
+	{
+		MapSqlParameterSource queryParams = new MapSqlParameterSource();
+		queryParams.addValue("student", Student);
+		
+		String SQL = "SELECT k.Nazwa FROM Student st JOIN GrupaLab l ON st.IdGrupaLab = l.Id " +
+     	 " JOIN GrupaCw c ON l.IdGrupaCw = c.Id "+
+		 "JOIN GrupaWyk w ON c.IdGrupaWyk = w.Id "+			
+		 "JOIN Rocznik r ON w.IdRocznik = r.Id "+
+		 "JOIN Semestr s ON r.IdSemestr = s.NumerSemestru "+
+		 "JOIN Kurs k ON k.IdSemestr = s.NumerSemestru "+
+		 "WHERE st.Album = :student";
+		
+		List<String> nazwyKursów = namedJdbcTemplate.queryForList(SQL, queryParams, String.class);
+		return nazwyKursów;
+		
+	}
 	public List<KursyStudenta> getStudentKursy(String Album)
 	{
 		List<KursyStudenta> kursyStudenta ;

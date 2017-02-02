@@ -2,6 +2,8 @@ package zut.wi.edziekanat.services;
 
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import zut.wi.edziekanat.entity.KursyStudenta;
 import zut.wi.edziekanat.entity.Oplata;
 import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.Student;
+import zut.wi.edziekanat.entity.StudentOceny;
 
 @Service
 public class StudentService
@@ -48,6 +51,36 @@ public class StudentService
 	public List<Oplata> getStudentOplaty(String Student)
 	{
 		return studentDao.getStudentOplaty(Student);
+	}
+	
+	public Map<String, List<KursyStudenta>> getStudentOceny(String Student)
+	{
+		Map<String,List<KursyStudenta>> studentKursy = new HashMap<String,List<KursyStudenta>>();
+		List<String> kursyStudentaSemestr = this.studentDao.getStudentKursNazwy(Student);
+		
+		List<KursyStudenta> kursyStudenta = this.getStudentKursy(Student);
+		
+		for(String nazwaKursu : kursyStudentaSemestr )
+		{
+			List<KursyStudenta> obecnyKurs = new ArrayList<KursyStudenta>();
+			List<StudentOceny> ocenyStudenta = this.studentDao.getStudentKursOceny(Student, nazwaKursu);
+			for(KursyStudenta k : kursyStudenta)
+			{
+				if(k.getNazwa().equals(nazwaKursu))
+				{
+					for(StudentOceny ocena : ocenyStudenta )
+					{
+						if(k.getFormaZajec().equals(ocena.getForma()))
+						{
+							k.setOcena(ocena);
+							obecnyKurs.add(k);
+						}
+					}
+				}
+			}
+			studentKursy.put(nazwaKursu, obecnyKurs);
+		}
+		return studentKursy;
 	}
 	
 

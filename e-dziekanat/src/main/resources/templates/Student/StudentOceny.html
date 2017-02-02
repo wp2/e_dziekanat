@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="Student/StudentLayout">
+<meta charset="UTF-8"/>
+	<div layout:fragment="Zawartosc">	
+		<script>
+		
+		</script>
+	    <div id="przedmiot" th:each="ListaForm : ${ListaKursow}">
+	    <p th:text="${ListaForm.key}" onclick="$(this).closest('#przedmiot').children('#ListaFormKursu').slideToggle('fast')">NULL</p>
+	    <table border="1" cellpadding="5" width="100%" id="ListaFormKursu">
+        <tr>
+            <th>Przedmiot</th>
+            <th>Forma Zajęć</th>            
+            <th>Prowadzący</th>
+            <th>Forma Zaliczenia</th>
+            <th>Liczba Godzin</th> 
+            <th>ECTS</th>        
+             <th>I Termin</th>
+            <th>II Termin</th>
+            <th>I Poprawka</th> 
+            <th>II Poprawka</th>     
+            <th>Komisja</th>                 
+        </tr>
+        <tr th:each="forma : ${ListaForm.value}">
+        	<td th:text="${forma.getNazwa()}"></td>
+        	<td th:text="${forma.getFormaZajec()}"></td>
+        	<td th:text="${forma.getProwadzacy()}"></td>
+        	<td th:text="${forma.getFormaZaliczenia()}"></td>
+        	<td th:text="${forma.getLiczbaGodzin()}"></td>
+        	<td th:text="${forma.geteCTS()}"></td>
+        	<td th:text="${forma.getOcena().getITermin()}"></td>
+        	<td th:text="${forma.getOcena().getIITermin()}"></td>
+        	<td th:text="${forma.getOcena().getIPoprawka()}"></td>
+        	<td th:text="${forma.getOcena().getIIPoprawka()}"></td>
+        	<td th:text="${forma.getOcena().getKomisja()}"></td>
+        </tr>
+        
+
+    </table>
+	    </div>
+	    
+	</div>
+</html>
