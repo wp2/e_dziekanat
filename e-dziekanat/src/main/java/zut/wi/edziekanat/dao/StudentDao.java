@@ -17,15 +17,15 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import zut.wi.edziekanat.entity.KursyStudenta;
-import zut.wi.edziekanat.entity.KursyStudentaRowMapper;
 import zut.wi.edziekanat.entity.Oplata;
-import zut.wi.edziekanat.entity.OplataRowMapper;
 import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.Student;
 import zut.wi.edziekanat.entity.StudentOceny;
-import zut.wi.edziekanat.entity.StudentOcenyRowMapper;
-import zut.wi.edziekanat.entity.StudentPracaDyplomowaMapper;
-import zut.wi.edziekanat.entity.StudentRowMapper;
+import zut.wi.edziekanat.entity.mappers.KursyStudentaRowMapper;
+import zut.wi.edziekanat.entity.mappers.OplataRowMapper;
+import zut.wi.edziekanat.entity.mappers.StudentOcenyRowMapper;
+import zut.wi.edziekanat.entity.mappers.StudentPracaDyplomowaMapper;
+import zut.wi.edziekanat.entity.mappers.StudentRowMapper;
 
 @Repository
 public class StudentDao 

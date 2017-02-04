@@ -101,6 +101,12 @@ public class Dydaktyk
 	public int getId() {
 		return Id;
 	}
+
+	public void setId(int id) {
+		Id = id;
+	}
+	
+	
 	
 	
 

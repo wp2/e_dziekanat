@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -32,7 +33,16 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler
 		String DydaktykURL = "/Dydaktyk/";
 		try 
 		{
-			redirectStrategy.sendRedirect(httpRequest, httpResponse, StudentURL);
+			SimpleGrantedAuthority simple = new SimpleGrantedAuthority("ROLE_STUDENT");
+			SimpleGrantedAuthority simple2 = new SimpleGrantedAuthority("ROLE_DYDAKTYK");
+			if(auth.getAuthorities().contains(simple))
+			{
+				redirectStrategy.sendRedirect(httpRequest, httpResponse, StudentURL);
+			}
+			if(auth.getAuthorities().contains(simple2))
+			{
+				redirectStrategy.sendRedirect(httpRequest, httpResponse, DydaktykURL);
+			}
 		} 
 		catch (IOException e) 
 		{			

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="Dydaktyk/DydaktykLayout">
+<meta charset="UTF-8"/>
+<div layout:fragment="Zawartosc">
+
+ 	<div id="przedmiot" th:each="forma : ${ListaPrzedmiotow}">
+   	<p th:text="${forma.key.getPrzedmiotOpis()}" onclick="$(this).closest('#przedmiot').children('#ListaFormKursu').slideToggle('slow')">NULL</p>
+   	<form id="ListaFormKursu" action="@{/Dydaktyk/Oceny}" method="POST" th:object="${ocenaStudenta}">	
+	    <table border="1" cellpadding="5" width="60%" >      
+        	<tr>
+	            <th>Imie</th>
+	            <th>Nazwisko</th>            
+	            <th>I Termin</th>
+	            <th>II Termin</th>
+	            <th>I Poprawka</th> 
+	            <th>II Poprawka</th> 
+	            <th>Operacje</th>
+	                
+	        </tr>	       
+	        <tr th:each="student : ${forma.value}">
+	        	
+	        		<td th:text="${student.getImie()}"></td>	
+	        		<td th:text="${student.getNazwisko()}"></td>        	
+	       			<td>		        	
+		        		<select id="ITermin" th:field="*{Kurs}">
+		        			<option value="2.0">2.0</option>
+		        			<option value="3.0">3.0</option>
+		        			<option value="3.5">3.5</option>
+		        			<option value="4.0">4.0</option>
+		        			<option value="4.5">4.5</option>
+		        			<option value="5.0">5.0</option>
+		        		</select>
+		        	</td>
+		        	<td>
+		        		<select id="IITermin">
+		        			<option value="2.0">2.0</option>
+		        			<option value="3.0">3.0</option>
+		        			<option value="3.5">3.5</option>
+		        			<option value="4.0">4.0</option>
+		        			<option value="4.5">4.5</option>
+		        			<option value="5.0">5.0</option>
+		        		</select>
+	        		</td>
+		        	<td>
+		        		<select id="IPoprawka">
+		        			<option value="2.0">2.0</option>
+		        			<option value="3.0">3.0</option>
+		        			<option value="3.5">3.5</option>
+		        			<option value="4.0">4.0</option>
+		        			<option value="4.5">4.5</option>
+		        			<option value="5.0">5.0</option>
+		        		</select>
+		        	</td>
+		        	<td>
+		        		<select id="IIPoprawka">
+		        			<option value="2.0">2.0</option>
+		        			<option value="3.0">3.0</option>
+		        			<option value="3.5">3.5</option>
+		        			<option value="4.0">4.0</option>
+		        			<option value="4.5">4.5</option>
+		        			<option value="5.0">5.0</option>
+		        		</select>
+		        	</td>	
+		        	<td>
+		        		<input type="submit" id="save" value="Zapisz"/>		        		
+		        	</td>		        		
+	        	      
+	        </tr>
+	 
+	
+	    </table>
+	    </form>
+    </div>
+
+</div>
+
+</html>

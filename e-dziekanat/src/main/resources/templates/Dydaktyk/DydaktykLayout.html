@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+lang="pl-PL">
+<head>
+<meta charset="UTF-8"/>
+<title>E-Dziekanat Student</title>
+<link rel="stylesheet" type="text/css" href="/CSS/GlobalStyle.css"/>
+<script th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
+</head>
+<body>
+	<div id="Strona">
+		<div id="Logo">
+			<img src="/Images/E-dziekanat_logo.png" alt="e-dziekanat_logo" />			
+		</div>
+		<div id="PasekNawigacyjny">
+			<ul class="Pelny">
+				<li><a href='Oceny'>Oceny</a></li>
+				<li><a href='DanePracownika'>Dane</a></li>
+				<li><a href='PraceDyplomowe'>Prace Dyplomowe</a></li>
+			</ul>
+		</div>
+		<div id="LeweMenu">
+			<ul>
+            	<li>            		
+                    <a href="">Pracownik</a>
+                    <ul>                    	
+                        <li><a href="DanePracownika">Dane</a></li>  
+                        <li><a href='Oceny'>Pracownik - Ocenianie</a></li>                      
+                        <li><a href="Przedmioty">Pracownik-Przedmioty</a></li>     
+                        <li><a href="KontaktzDziekanatem">Kontakt z Dziekanatem</a></li>       
+                    </ul>                         
+                                	
+                </li>
+                <li>
+                	<a href="">Dane Finansowe</a>
+                    <ul>                    	
+                        <li><a href="Finanse">Finanse</a></li>
+                            
+                    </ul> 
+                </li>
+                <li>
+                	<a href="">Dyplom</a>
+                    <ul>                    	
+                        <li><a href="PraceDyplomowe">Praca Dyplomowa - Informacje</a></li>                            
+                    </ul> 
+                </li>
+                <li><a href="#">Ogłoszenia</a></li>
+                <li><a th:href="@{/Login/logout/}">Wyloguj</a></li>
+            </ul>
+		</div>
+		<div id="Zawartosc" layout:fragment="Zawartosc">
+		</div>
+		<div id="Stopka">			
+		 	<hr />
+            <p>Wszystkie Prawa Zastrzeżone &copy; 2017 Wojciech Pardel</p>
+            <p>Kontakt : wpardel@gmail.com</p>
+            <hr />
+		</div>
+	</div>
+
+</body>
+</html>

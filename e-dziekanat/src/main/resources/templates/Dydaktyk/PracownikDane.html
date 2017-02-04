@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="Dydaktyk/DydaktykLayout"
+lang="pl-PL">
+<meta charset="UTF-8"/>
+
+<div layout:fragment="Zawartosc">	 
+    <table border="1" align="center" width="50%" class="prettyTable">              
+        <tr><td><span class="DaneStudenta" ><b>Imię:</b></span><span class="DaneStudenta" th:text="${dydaktyk.getImie()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Nazwisko:</b></span><span class="DaneStudenta" th:text="${dydaktyk.getNazwisko()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Identyfikator :</b></span><span class="DaneStudenta" th:text="${dydaktyk.getId()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Adres:</b></span><span class="DaneStudenta" th:text="${dydaktyk.getAdres()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Email:</b></span><span class="DaneStudenta" th:text="${dydaktyk.getImie()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Data Urodzenia:</b></span><span class="DaneStudenta" th:text="${dydaktyk.getDataUrodzenia()}"></span></td></tr>       
+    </table>
+</div>
+
+</html>

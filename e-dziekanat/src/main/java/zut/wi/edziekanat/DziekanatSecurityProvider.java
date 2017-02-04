@@ -14,7 +14,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import zut.wi.edziekanat.entity.Dydaktyk;
 import zut.wi.edziekanat.entity.Student;
+import zut.wi.edziekanat.services.DydaktykService;
 import zut.wi.edziekanat.services.StudentService;
 
 @Component
@@ -25,6 +27,9 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 	
 	@Autowired
 	StudentService studentService;
+	
+	@Autowired
+	DydaktykService dydaktykService;
 
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException 
@@ -40,8 +45,7 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 			Student student = studentService.getStudentByAlbum(Login);
 			if(student.getAlbum().equals(Login) && student.getHaslo().equals(Passwd))
 			{
-				grantedAuthority.add(new SimpleGrantedAuthority("ROLE_STUDENT")); // Uprawnienia Studenta
-				// TO DO Hook up service DB Pass AUTH 
+				grantedAuthority.add(new SimpleGrantedAuthority("ROLE_STUDENT")); // Uprawnienia Studenta				
 				return new UsernamePasswordAuthenticationToken(Login,Passwd,grantedAuthority);		
 			}
 			else
@@ -50,11 +54,18 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 			}
 						
 		}
-		else if(loginType[0].equals("Dydaktyk"))
+		else if(loginType[0] != null && loginType[0].equals("Dydaktyk") && httpRequest.getParameter("Login") != null && httpRequest.getParameter("Hasło") != null)
 		{
 			String Login = httpRequest.getParameter("Login");
 			String Passwd = httpRequest.getParameter("Hasło");
-			return new UsernamePasswordAuthenticationToken("C", "d",grantedAuthority);
+			Dydaktyk dydaktyk = dydaktykService.getDydaktykById(Integer.parseInt(Login));
+			if(dydaktyk.getId() == Integer.parseInt(Login) && Passwd.equals(dydaktyk.getHaslo()))
+			{
+				grantedAuthority.add(new SimpleGrantedAuthority("ROLE_DYDAKTYK"));
+				return new UsernamePasswordAuthenticationToken(Login, Passwd,grantedAuthority);
+			}
+			else return null;
+			
 		}
 		else
 		{

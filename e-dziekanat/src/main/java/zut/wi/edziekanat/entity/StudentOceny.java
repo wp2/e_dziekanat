@@ -10,11 +10,15 @@ public class StudentOceny
 	
 	String FormaZaliczenia;
 	
-	String Kurs;
+	public String Kurs;
+	
+	String Imie;
+	
+	String Nazwisko;
 	
 	int LiczbaGodzin;
 	
-	float ITermin;
+	public float ITermin;
 	
 	float IITermin;
 	
@@ -24,6 +28,8 @@ public class StudentOceny
 	
 	float Komisja;
 
+	public StudentOceny(){};
+	
 	public StudentOceny(String dydaktyk, String forma, String kurs, float iTermin, float iITermin, float iPoprawka,
 			float iIPoprawka, float komisja) {
 		Dydaktyk = dydaktyk;
@@ -35,6 +41,22 @@ public class StudentOceny
 		IIPoprawka = iIPoprawka;
 		Komisja = komisja;
 	}
+	
+	
+
+	public StudentOceny( Integer Id, String imie,String nazwisko, float iTermin, float iITermin, float iPoprawka, float iIPoprawka,float komisja) 
+	{
+		this.Id = Id;
+		Imie = imie;
+		Nazwisko = nazwisko;		
+		ITermin = iTermin;
+		IITermin = iITermin;
+		IPoprawka = iPoprawka;
+		IIPoprawka = iIPoprawka;
+		Komisja = komisja;
+	}
+
+
 
 	public Integer getId() {
 		return Id;
@@ -123,6 +145,31 @@ public class StudentOceny
 	public void setFormaZaliczenia(String formaZaliczenia) {
 		FormaZaliczenia = formaZaliczenia;
 	}
+
+
+
+	public String getImie() {
+		return Imie;
+	}
+
+
+
+	public void setImie(String imie) {
+		Imie = imie;
+	}
+
+
+
+	public String getNazwisko() {
+		return Nazwisko;
+	}
+
+
+
+	public void setNazwisko(String nazwisko) {
+		Nazwisko = nazwisko;
+	}
+	
 	
 	
 	

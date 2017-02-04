@@ -4,15 +4,15 @@ package zut.wi.edziekanat.controllers;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import zut.wi.edziekanat.entity.Email;
 import zut.wi.edziekanat.entity.KursyStudenta;
-import zut.wi.edziekanat.entity.Student;
-import zut.wi.edziekanat.services.SMTP;
+
 import zut.wi.edziekanat.services.StudentService;
 
 @Controller
@@ -67,8 +66,12 @@ public class StudentController
 	@GetMapping(value="/Przedmioty")
 	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_STUDENT")
-	public String studentKursy(Principal principal,Model model)
+	public String studentKursy(Principal principal,Model model,@RequestParam(value="SemestrNum",required=false,defaultValue="0")Integer SemestrNum)
 	{
+		if(SemestrNum == 0)
+		{
+			System.out.println("Current Semestr");
+		}
 		List<KursyStudenta> kursy;
 		model.addAttribute("ListaKursow",studentService.getStudentKursy(principal.getName()) );
 		

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="Dydaktyk/DydaktykLayout"
+lang="pl-PL">
+<meta charset="UTF-8"/>
+
+<div layout:fragment="Zawartosc">	 
+    <table border="1" align="center" width="50%" class="prettyTable">              
+        <tr><td><span class="DaneStudenta" ><b>Imię:</b></span><span class="DaneStudenta" th:text="${zatrudnienie.getImie()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Nazwisko:</b></span><span class="DaneStudenta" th:text="${zatrudnienie.getNazwisko()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Identyfikator Pracownika:</b></span><span class="DaneStudenta" th:text="${zatrudnienie.getId()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Typ Umowy o Pracę :</b></span><span class="DaneStudenta" th:text="${zatrudnienie.getTypUmowy()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Zarobki miesięcznie:</b></span><span class="DaneStudenta" th:text="${zatrudnienie.getZarobki()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Umowa od :</b></span><span class="DaneStudenta" th:text="${zatrudnienie.getUmowaOd()}"></span></td></tr>
+        <tr><td><span class="DaneStudenta"><b>Umowa do:</b></span><span class="DaneStudenta" th:text="${zatrudnienie.getUmowaDo()}">Bezterminowa</span></td></tr>       
+    </table>
+</div>
+
+</html>

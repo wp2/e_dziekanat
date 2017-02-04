@@ -1,9 +1,11 @@
-package zut.wi.edziekanat.entity;
+package zut.wi.edziekanat.entity.mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
+
+import zut.wi.edziekanat.entity.KursyStudenta;
 
 public class KursyStudentaRowMapper implements RowMapper<KursyStudenta> {
 
