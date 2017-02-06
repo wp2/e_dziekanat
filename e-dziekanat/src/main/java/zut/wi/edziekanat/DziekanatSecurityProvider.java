@@ -1,12 +1,16 @@
 package zut.wi.edziekanat;
 
+import java.nio.file.AccessDeniedException;
+import java.rmi.StubNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.BadAttributeValueExpException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -14,8 +18,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import javassist.tools.web.BadHttpRequest;
 import zut.wi.edziekanat.entity.Dydaktyk;
 import zut.wi.edziekanat.entity.Student;
+import zut.wi.edziekanat.exceptions.StudentNotFound;
 import zut.wi.edziekanat.services.DydaktykService;
 import zut.wi.edziekanat.services.StudentService;
 
@@ -42,7 +48,17 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 		{
 			String Login = httpRequest.getParameter("Login");
 			String Passwd = httpRequest.getParameter("Hasło");
-			Student student = studentService.getStudentByAlbum(Login);
+			Student student = null;
+			try 
+			{
+				student = studentService.getStudentByAlbum(Login);
+			} 
+			catch (StudentNotFound e) 
+			{				
+				throw new BadCredentialsException("");
+			}
+			if(student == null) throw new BadCredentialsException("f");				
+				
 			if(student.getAlbum().equals(Login) && student.getHaslo().equals(Passwd))
 			{
 				grantedAuthority.add(new SimpleGrantedAuthority("ROLE_STUDENT")); // Uprawnienia Studenta				
@@ -50,7 +66,7 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 			}
 			else
 			{
-				return null;
+				throw new BadCredentialsException("Login of Password is incorrect");
 			}
 						
 		}
@@ -64,12 +80,12 @@ public class DziekanatSecurityProvider implements AuthenticationProvider
 				grantedAuthority.add(new SimpleGrantedAuthority("ROLE_DYDAKTYK"));
 				return new UsernamePasswordAuthenticationToken(Login, Passwd,grantedAuthority);
 			}
-			else return null;
+			else throw new BadCredentialsException("Login of Password is incorrect");
 			
 		}
 		else
 		{
-			return null;
+			throw new BadCredentialsException("Incorrect account type selected");
 		}
 		
 		

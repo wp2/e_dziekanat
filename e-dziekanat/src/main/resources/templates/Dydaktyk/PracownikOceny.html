@@ -5,10 +5,43 @@ layout:decorator="Dydaktyk/DydaktykLayout">
 <meta charset="UTF-8"/>
 <div layout:fragment="Zawartosc">
 
+	<script>	
+		
+	$(document).ready(function(){  
+	    
+	});
+	    	          
+	    function Ajax(e,event)
+	    {
+	    	var a = $(e).serialize()	
+	    	event.preventDefault()
+	    	$.ajax({
+				type : "POST",
+				contentType : "application/x-www-form-urlencoded",
+				url : "http://localhost:8080/Dydaktyk/Oceny",				
+				data : a,
+				dataType : 'text',
+				timeout : 100000,
+				success : function(data) {
+					console.log("SUCCESS: ", data);
+					
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+				
+				},
+				done : function(e) {
+					console.log("DONE");
+					
+				}
+			});
+	    }
+	</script>
+
  	<div id="przedmiot" th:each="forma : ${ListaPrzedmiotow}">
    	<p th:text="${forma.key.getPrzedmiotOpis()}" onclick="$(this).closest('#przedmiot').children('#ListaFormKursu').slideToggle('slow')">NULL</p>
-   	<form id="ListaFormKursu" action="@{/Dydaktyk/Oceny}" method="POST" th:object="${ocenaStudenta}">	
-	    <table border="1" cellpadding="5" width="60%" >      
+   	
+	    <table border="1" cellpadding="5" width="60%" id="ListaFormKursu" >      
         	<tr>
 	            <th>Imie</th>
 	            <th>Nazwisko</th>            
@@ -18,60 +51,65 @@ layout:decorator="Dydaktyk/DydaktykLayout">
 	            <th>II Poprawka</th> 
 	            <th>Operacje</th>
 	                
-	        </tr>	       
+	        </tr>	       	        
 	        <tr th:each="student : ${forma.value}">
-	        	
+	        		<form  id="OcenyFormularz" th:action="@{/Dydaktyk/Oceny}" method="POST" th:object="${ocenaStudenta}" onsubmit="Ajax(this,event)">	
+	        		<input type="hidden" th:value="${student.getId()}" th:id="Id" th:name="Id"/>
 	        		<td th:text="${student.getImie()}"></td>	
 	        		<td th:text="${student.getNazwisko()}"></td>        	
 	       			<td>		        	
-		        		<select id="ITermin" th:field="*{Kurs}">
-		        			<option value="2.0">2.0</option>
-		        			<option value="3.0">3.0</option>
-		        			<option value="3.5">3.5</option>
-		        			<option value="4.0">4.0</option>
-		        			<option value="4.5">4.5</option>
-		        			<option value="5.0">5.0</option>
-		        		</select>
+		        		<select th:id="ITermin" th:name="ITermin"  >
+		        			<option value="0" th:selected="${student.ITermin == 0.0}">0.0</option>
+		        			<option value="2.0" th:selected="${student.ITermin == 2.0}">2.0</option>
+		        			<option value="3.0" th:selected="${student.ITermin == 3.0}">3.0</option>
+		        			<option value="3.5" th:selected="${student.ITermin == 3.5}">3.5</option>
+		        			<option value="4.0" th:selected="${student.ITermin == 4.0}">4.0</option>
+		        			<option value="4.5" th:selected="${student.ITermin == 4.5}">4.5</option>
+		        			<option value="5.0" th:selected="${student.ITermin == 5.0}">5.0</option>
+		        		</select>		        	
 		        	</td>
 		        	<td>
-		        		<select id="IITermin">
-		        			<option value="2.0">2.0</option>
-		        			<option value="3.0">3.0</option>
-		        			<option value="3.5">3.5</option>
-		        			<option value="4.0">4.0</option>
-		        			<option value="4.5">4.5</option>
-		        			<option value="5.0">5.0</option>
+		        		<select th:id="IITermin" th:name="IITermin" >
+		        			<option value="0" th:selected="${student.IITermin == 0.0}">0.0</option>
+		        			<option value="2.0" th:selected="${student.IITermin == 2.0}">2.0</option>
+		        			<option value="3.0" th:selected="${student.IITermin == 3.0}">3.0</option>
+		        			<option value="3.5" th:selected="${student.IITermin == 3.5}">3.5</option>
+		        			<option value="4.0" th:selected="${student.IITermin == 4.0}">4.0</option>
+		        			<option value="4.5" th:selected="${student.IITermin == 4.5}">4.5</option>
+		        			<option value="5.0" th:selected="${student.IITermin == 5.0}">5.0</option>
 		        		</select>
 	        		</td>
 		        	<td>
-		        		<select id="IPoprawka">
-		        			<option value="2.0">2.0</option>
-		        			<option value="3.0">3.0</option>
-		        			<option value="3.5">3.5</option>
-		        			<option value="4.0">4.0</option>
-		        			<option value="4.5">4.5</option>
-		        			<option value="5.0">5.0</option>
+		        		<select th:id="IPoprawka" th:name="IPoprawka" >
+		        			<option value="0" th:selected="${student.IPoprawka == 0.0}">0.0</option>
+		        			<option value="2.0" th:selected="${student.IPoprawka == 2.0}">2.0</option>
+		        			<option value="3.0" th:selected="${student.IPoprawka == 3.0}">3.0</option>
+		        			<option value="3.5" th:selected="${student.IPoprawka == 3.5}">3.5</option>
+		        			<option value="4.0" th:selected="${student.IPoprawka == 4.0}">4.0</option>
+		        			<option value="4.5" th:selected="${student.IPoprawka == 4.5}">4.5</option>
+		        			<option value="5.0" th:selected="${student.IPoprawka == 5.0}">5.0</option>
 		        		</select>
 		        	</td>
 		        	<td>
-		        		<select id="IIPoprawka">
-		        			<option value="2.0">2.0</option>
-		        			<option value="3.0">3.0</option>
-		        			<option value="3.5">3.5</option>
-		        			<option value="4.0">4.0</option>
-		        			<option value="4.5">4.5</option>
-		        			<option value="5.0">5.0</option>
+		        		<select th:id="IIPoprawka" th:name="IIPoprawka" >
+		        			<option value="0" th:selected="${student.IIPoprawka == 0.0}">0.0</option>
+		        			<option value="2.0" th:selected="${student.IIPoprawka == 2.0}">2.0</option>
+		        			<option value="3.0" th:selected="${student.IIPoprawka == 3.0}">3.0</option>
+		        			<option value="3.5" th:selected="${student.IIPoprawka == 3.5}">3.5</option>
+		        			<option value="4.0" th:selected="${student.IIPoprawka == 4.0}">4.0</option>
+		        			<option value="4.5" th:selected="${student.IIPoprawka == 4.5}">4.5</option>
+		        			<option value="5.0" th:selected="${student.IIPoprawka == 5.0}">5.0</option>
 		        		</select>
 		        	</td>	
 		        	<td>
 		        		<input type="submit" id="save" value="Zapisz"/>		        		
 		        	</td>		        		
-	        	      
+	        	  </form>     
 	        </tr>
 	 
 	
 	    </table>
-	    </form>
+	   
     </div>
 
 </div>

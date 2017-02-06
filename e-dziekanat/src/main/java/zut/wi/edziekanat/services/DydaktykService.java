@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import zut.wi.edziekanat.dao.DydaktykDao;
 import zut.wi.edziekanat.entity.Dydaktyk;
+import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.PrzedmiotyDydaktyka;
 import zut.wi.edziekanat.entity.StudentOceny;
 import zut.wi.edziekanat.entity.Zatrudnienie;
@@ -45,6 +46,16 @@ public class DydaktykService
 		}
 		return ocenyKursów;
 		//return this.dydaktykDao.getOcenyzKursow(Id);
+	}
+	
+	public void setStudentOcenyById(StudentOceny oceny)
+	{
+		this.dydaktykDao.setStudentOcenyById(oceny);
+	}
+	
+	public PracaDyplomowa getPromotorPracaDyplomowa(Integer Dydaktyk)
+	{
+		return this.dydaktykDao.getPromotorPracaDyplomowa(Dydaktyk);
 	}
 
 }

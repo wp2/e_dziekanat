@@ -16,6 +16,7 @@ import zut.wi.edziekanat.entity.Oplata;
 import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.Student;
 import zut.wi.edziekanat.entity.StudentOceny;
+import zut.wi.edziekanat.exceptions.StudentNotFound;
 
 @Service
 public class StudentService
@@ -23,9 +24,12 @@ public class StudentService
 	@Autowired
 	StudentDao studentDao;
 	
-	public Student getStudentByAlbum(String Album)
+	public Student getStudentByAlbum(String Album) throws StudentNotFound
 	{
-		return studentDao.getStudentById(Album);
+		Student student = studentDao.getStudentById(Album);
+		if(student == null) throw new StudentNotFound(Album);
+		else return student;
+	
 	}
 	
 	public Student getStudentDataByAlbum(String Album)

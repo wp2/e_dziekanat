@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="Dydaktyk/DydaktykLayout"
+lang="pl-PL">
+<meta charset="UTF-8"/>
+
+<div layout:fragment="Zawartosc">
+	
+    <table border="1" align="center" width="50%">              
+        <tr><td><span class="DaneStudenta" ><b>Tytuł :</b></span><span class="DaneStudenta" th:text="${praca.getTytulPracy()}"></span></td></tr>
+       	<tr><td><span class="DaneStudenta" ><b>Promotor :</b></span><span class="DaneStudenta" th:text="${praca.getDydaktyk()}"></span></td></tr>
+       	<tr><td><span class="DaneStudenta" ><b>Pierwszy Recenzent :</b></span><span class="DaneStudenta" th:text="${praca.getPierwszyRecenzent()}"></span></td></tr>
+       	<tr><td><span class="DaneStudenta" ><b>Drugi Recenzent :</b></span><span class="DaneStudenta" th:text="${praca.getDrugiRecenzent()}"></span></td></tr>
+       	<tr><td><span class="DaneStudenta" ><b>Ocena Pierwszego Recenzenta :</b></span><span class="DaneStudenta" th:text="${praca.getPierwszaOcena()}"></span></td></tr>
+       	<tr><td><span class="DaneStudenta" ><b>Ocena Drugiego Recenzenta :</b></span><span class="DaneStudenta" th:text="${praca.getDrugaOcena()}"></span></td></tr>
+       	<tr><td><span class="DaneStudenta" ><b>Termin Złożenia pracy :</b></span><span class="DaneStudenta" th:text="${praca.getTerminZlozeniaPracy()}"></span></td></tr>
+   	    <tr><td><span class="DaneStudenta" ><b>Data Złożenia pracy :</b></span><span class="DaneStudenta" th:text="${praca.getDataZlozeniaPracy()}"></span></td></tr>
+       	<tr><td><span class="DaneStudenta" ><b>Przewodniczący Komisji:</b></span><span class="DaneStudenta" th:text="${praca.getPrzewodnicacy()}"></span></td></tr>
+       	<tr><td><span class="DaneStudenta" ><b>Data Obrony:</b></span><span class="DaneStudenta" th:text="${praca.getDataObrony()}"></span></td></tr>     	
+    </table>
+</div>
+
+</html>
