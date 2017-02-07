@@ -33,13 +33,13 @@ public class StudentController
 	@Autowired
 	StudentService studentService;
 	
-	@GetMapping(value="/")	
+	@GetMapping(value={"/","/Ogloszenia"})	
 	@ResponseStatus(code=HttpStatus.OK)
 	//@PreAuthorize("hasRole('ROLE_DYDAKTYK') && isAuthenticated()")
 	@Secured("ROLE_STUDENT")
-	public String Home()
+	public String Home(Model model)
 	{
-		
+		model.addAttribute("ListaOgloszen",this.studentService.getOgloszenia());
 		return "Student/StudentOgloszenia";
 	}
 	

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import zut.wi.edziekanat.dao.StudentDao;
 import zut.wi.edziekanat.entity.KursyStudenta;
+import zut.wi.edziekanat.entity.Ogloszenie;
 import zut.wi.edziekanat.entity.Oplata;
 import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.Student;
@@ -85,6 +86,11 @@ public class StudentService
 			studentKursy.put(nazwaKursu, obecnyKurs);
 		}
 		return studentKursy;
+	}
+	
+	public List<Ogloszenie> getOgloszenia()
+	{
+		return this.studentDao.getAllOgloszenia();
 	}
 	
 	

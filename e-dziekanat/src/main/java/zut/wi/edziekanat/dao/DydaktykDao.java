@@ -8,11 +8,13 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import zut.wi.edziekanat.entity.Dydaktyk;
+import zut.wi.edziekanat.entity.Ogloszenie;
 import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.PrzedmiotyDydaktyka;
 import zut.wi.edziekanat.entity.StudentOceny;
 import zut.wi.edziekanat.entity.Zatrudnienie;
 import zut.wi.edziekanat.entity.mappers.DydaktykRowMapper;
+import zut.wi.edziekanat.entity.mappers.OgloszenieRowMapper;
 import zut.wi.edziekanat.entity.mappers.PracownikKursStudentOcenyRowMapper;
 import zut.wi.edziekanat.entity.mappers.PrzedmiotyDydaktykaRowMapper;
 import zut.wi.edziekanat.entity.mappers.StudentPracaDyplomowaMapper;
@@ -97,6 +99,13 @@ public class DydaktykDao
 				+ " WHERE dp.IdDydaktyk= :promotor";
 		pracaDyplomowa = namedJdbcTemplate.queryForObject(SQL,queryParams, new StudentPracaDyplomowaMapper());
 		return pracaDyplomowa;
+	}
+	
+	public List<Ogloszenie> getAllOgloszenia()
+	{
+		String SQL ="SELECT * FROM Ogloszenia";
+		List<Ogloszenie> ogloszenia = namedJdbcTemplate.query(SQL,new OgloszenieRowMapper());
+		return ogloszenia; 
 	}
 	
 	

@@ -2,9 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorator="Student/StudentLayout">
+<meta charset="UTF-8"/>
 
 <div layout:fragment="Zawartosc">
-	<p>Hello From Fragment</p>
+
+	<fieldset th:each="ogloszenie : ${ListaOgloszen}">
+		<p>Tytuł :  <span th:text="${ogloszenie.getTytul()}"></span></p>
+		<p>Data Dodania : <span th:text="${ogloszenie.getDataDodania()}"></span></p>
+		<p>Treść:  <span th:text="${ogloszenie.getTresc()}"></span></p>
+	</fieldset>
 </div>
 
 </html>

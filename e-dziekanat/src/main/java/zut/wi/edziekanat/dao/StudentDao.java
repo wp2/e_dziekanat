@@ -10,18 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import zut.wi.edziekanat.entity.KursyStudenta;
+import zut.wi.edziekanat.entity.Ogloszenie;
 import zut.wi.edziekanat.entity.Oplata;
 import zut.wi.edziekanat.entity.PracaDyplomowa;
 import zut.wi.edziekanat.entity.Student;
 import zut.wi.edziekanat.entity.StudentOceny;
 import zut.wi.edziekanat.entity.mappers.KursyStudentaRowMapper;
+import zut.wi.edziekanat.entity.mappers.OgloszenieRowMapper;
 import zut.wi.edziekanat.entity.mappers.OplataRowMapper;
 import zut.wi.edziekanat.entity.mappers.StudentOcenyRowMapper;
 import zut.wi.edziekanat.entity.mappers.StudentPracaDyplomowaMapper;
@@ -210,6 +211,13 @@ public class StudentDao
 		return oplaty;
 	}
 	
+	public List<Ogloszenie> getAllOgloszenia()
+	{
+		String SQL ="SELECT * FROM Ogloszenia";
+		List<Ogloszenie> ogloszenia = namedJdbcTemplate.query(SQL,new OgloszenieRowMapper());
+		return ogloszenia; 
+	}
+	 
 	
 
 }

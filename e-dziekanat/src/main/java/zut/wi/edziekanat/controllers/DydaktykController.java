@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import zut.wi.edziekanat.entity.AjaxOcenyBody;
 import zut.wi.edziekanat.entity.Dydaktyk;
 import zut.wi.edziekanat.entity.Email;
 import zut.wi.edziekanat.entity.StudentOceny;
@@ -32,11 +31,12 @@ public class DydaktykController
 	@Autowired
 	DydaktykService dydaktykService;
 	
-	@GetMapping(value="/")
+	@GetMapping(value={"/","/Ogloszenia"})
 	@ResponseStatus(code=HttpStatus.OK)
 	@Secured("ROLE_DYDAKTYK")
 	public String OgłoszeniaPracownika(Principal principal,Model model)
-	{		
+	{	
+		model.addAttribute("ListaOgloszen",this.dydaktykService.getOgloszenia());
 		return "Dydaktyk/PracownikOgłoszenia";
 	}
 	
@@ -100,7 +100,7 @@ public class DydaktykController
 	public String PracownikOcenianie(Principal principal,Model model)
 	{
 		model.addAttribute("ListaPrzedmiotow",dydaktykService.getKursyOceny(Integer.parseInt(principal.getName())));
-		model.addAttribute("ocenaStudenta",new AjaxOcenyBody());
+		
 		return "Dydaktyk/PracownikOceny";
 	}
 	
